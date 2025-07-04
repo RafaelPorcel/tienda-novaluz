@@ -1,18 +1,14 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import './App.css';
 
+// Componente principal de la aplicación React
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <h1>Panel de Administración NOVALUZ</h1>
-      </div>
-    </>
-  )
+    <div>
+      {/* Título principal del panel de administración */}
+      <h1>Panel de Administración NOVALUZ</h1>
+      {/* Aquí puedes añadir más componentes o páginas, como la gestión de productos */}
+    </div>
+  );
 }
 
-export default App
+export default App;
