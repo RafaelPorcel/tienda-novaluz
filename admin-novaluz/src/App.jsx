@@ -1,4 +1,5 @@
 import './App.css';
+import Productos from './pages/Productos';
 
 // Componente principal de la aplicación React
 function App() {
@@ -6,7 +7,8 @@ function App() {
     <div>
       {/* Título principal del panel de administración */}
       <h1>Panel de Administración NOVALUZ</h1>
-      {/* Aquí puedes añadir más componentes o páginas, como la gestión de productos */}
+      {/* Muestra la página de productos */}
+      <Productos />
     </div>
   );
 }
