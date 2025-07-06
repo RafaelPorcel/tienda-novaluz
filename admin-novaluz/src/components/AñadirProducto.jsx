@@ -25,7 +25,6 @@ function AñadirProducto() {
 
   return (
     <div>
-      <h2>Añadir nuevo producto</h2>
       <form>
         {/* Campo: Nombre */}
         <div>
