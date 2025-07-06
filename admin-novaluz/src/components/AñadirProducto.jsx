@@ -5,9 +5,9 @@ import React, { useState } from "react";
 const categorias = ["Ventiladores", "Lámparas", "Bombillas"];
 
 const subcategoriasPorCategoria = {
-  "Ventiladores": ["Techo", "Pared", "Pie", "Industrial"],
-  "Lámparas": ["Techo", "Pie", "Apliques", "Plafones", "Ojos de buey"],
-  "Bombillas": ["LED", "Halógena", "Bajo Consumo"]
+  "Ventiladores": ["De techo aspas normales", "De techo aspas retráctiles", "De pie", "De sobremesa"],
+  "Lámparas": ["De sobremesa", "Plafones", "Flexos"],
+  "Bombillas": ["Halógenas", "LED", "Bajo consumo"]
 };
 
 // Componente principal del formulario de alta de producto

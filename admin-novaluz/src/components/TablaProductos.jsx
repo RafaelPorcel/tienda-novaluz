@@ -11,15 +11,17 @@ function TablaProductos() {
   const [subcategoriaSeleccionada, setSubcategoriaSeleccionada] = useState(''); // String con la subcategoría elegida en el selector
   const [mostrarTabla, setMostrarTabla] = useState(false); // Boolean que controla si se muestra la tabla (true = mostrar, false = ocultar)
 
-  // Obtener categorías únicas de todos los productos (sin repetir)
-  const categorias = [...new Set(productos.map(p => p.categoria))];
+  // Definimos las categorías y subcategorías disponibles en el sistema
+  const categorias = ["Ventiladores", "Lámparas", "Bombillas"];
+  
+  const subcategoriasPorCategoria = {
+    "Ventiladores": ["De techo aspas normales", "De techo aspas retráctiles", "De pie", "De sobremesa"],
+    "Lámparas": ["De sobremesa", "Plafones", "Flexos"],
+    "Bombillas": ["Halógenas", "LED", "Bajo consumo"]
+  };
   
   // Obtener subcategorías únicas de la categoría seleccionada
-  const subcategorias = [...new Set(
-    productos
-      .filter(p => p.categoria === categoriaSeleccionada) // Solo productos de la categoría elegida
-      .map(p => p.subcategoria) // Extrae las subcategorías
-  )];
+  const subcategorias = categoriaSeleccionada ? subcategoriasPorCategoria[categoriaSeleccionada] || [] : [];
 
   // Cargar productos cuando el componente se monta (solo se ejecuta una vez)
   useEffect(() => {
