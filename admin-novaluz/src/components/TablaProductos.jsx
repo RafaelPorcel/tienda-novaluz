@@ -1,104 +1,125 @@
-// Importamos los hooks necesarios de React y la función para obtener productos del backend
 import { useState, useEffect } from 'react';
 import { getProductos, eliminarProducto } from '../utils/api';
-// Importamos el modal de eliminación
 import ModalEliminarProducto from './modals/ModalEliminarProducto';
+import ModalEditarProducto from "./modals/ModalEditarProducto";
+import { API_URL } from '../utils/api';
 
 function TablaProductos() {
-  // Estados para manejar los datos y la interfaz de usuario
-  const [productos, setProductos] = useState([]); // Array con todos los productos de la base de datos
-  const [productosFiltrados, setProductosFiltrados] = useState([]); // Array con solo los productos que coinciden con los filtros
-  const [loading, setLoading] = useState(true); // Boolean que indica si está cargando datos (true = cargando, false = terminado)
-  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(''); // String con la categoría elegida en el selector
-  const [subcategoriaSeleccionada, setSubcategoriaSeleccionada] = useState(''); // String con la subcategoría elegida en el selector
-  const [mostrarTabla, setMostrarTabla] = useState(false); // Boolean que controla si se muestra la tabla (true = mostrar, false = ocultar)
-  
-  // Estados para el modal de eliminación
-  const [modalEliminar, setModalEliminar] = useState(false); // Boolean que controla si se muestra el modal
-  const [productoAEliminar, setProductoAEliminar] = useState(null); // Producto que se va a eliminar
+  // Estados principales
+  const [productos, setProductos] = useState([]);
+  const [productosFiltrados, setProductosFiltrados] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState('');
+  const [subcategoriaSeleccionada, setSubcategoriaSeleccionada] = useState('');
+  const [mostrarTabla, setMostrarTabla] = useState(false);
 
-  // Definimos las categorías y subcategorías disponibles en el sistema
+  // Estados para modales
+  const [modalEliminar, setModalEliminar] = useState(false);
+  const [productoAEliminar, setProductoAEliminar] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [productoSeleccionado, setProductoSeleccionado] = useState(null);
+
+  // Categorías y subcategorías
   const categorias = ["Ventiladores", "Lámparas", "Bombillas"];
-  
   const subcategoriasPorCategoria = {
     "Ventiladores": ["De techo aspas normales", "De techo aspas retráctiles", "De pie", "De sobremesa"],
     "Lámparas": ["De sobremesa", "Plafones", "Flexos"],
     "Bombillas": ["Halógenas", "LED", "Bajo consumo"]
   };
-  
-  // Obtener subcategorías únicas de la categoría seleccionada
   const subcategorias = categoriaSeleccionada ? subcategoriasPorCategoria[categoriaSeleccionada] || [] : [];
 
-  // Cargar productos cuando el componente se monta (solo se ejecuta una vez)
-  useEffect(() => {
-    const cargarProductos = async () => {
-      try {
-        // Hace la petición al backend para obtener todos los productos
-        const data = await getProductos();
-        setProductos(data); // Guarda los productos en el estado
-      } catch (error) {
-        console.error('Error al cargar productos:', error);
-      } finally {
-        setLoading(false); // Indica que terminó de cargar (exito o error)
-      }
-    };
+  // Función para cargar productos y devolver los datos
+  const cargarProductos = async () => {
+    try {
+      const data = await getProductos();
+      setProductos(data);
+      return data;
+    } catch (error) {
+      console.error('Error al cargar productos:', error);
+      return [];
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    cargarProductos(); // Ejecuta la función de carga
-  }, []); // Array vacío significa que solo se ejecuta al montar el componente
-
-  // Filtrar productos cuando cambian las selecciones de categoría o subcategoría
+  // Cargar productos al montar el componente
   useEffect(() => {
-    let filtrados = productos; // Empieza con todos los productos
-    
-    // Si hay categoría seleccionada, filtra por categoría
+    cargarProductos();
+  }, []);
+
+  // Filtrar productos cuando cambian productos o filtros
+  useEffect(() => {
+    let filtrados = productos;
     if (categoriaSeleccionada) {
       filtrados = filtrados.filter(p => p.categoria === categoriaSeleccionada);
     }
-    
-    // Si hay subcategoría seleccionada, filtra por subcategoría
     if (subcategoriaSeleccionada) {
       filtrados = filtrados.filter(p => p.subcategoria === subcategoriaSeleccionada);
     }
-    
-    setProductosFiltrados(filtrados); // Guarda los productos filtrados
-  }, [productos, categoriaSeleccionada, subcategoriaSeleccionada]); // Se ejecuta cuando cambian estos valores
+    setProductosFiltrados(filtrados);
+  }, [productos, categoriaSeleccionada, subcategoriaSeleccionada]);
 
-  // Función que se ejecuta al presionar el botón "Mostrar Productos"
-  const handleMostrarProductos = () => {
-    setMostrarTabla(true); // Muestra la tabla
+  // Mostrar productos: recarga y filtra con los datos recién traídos
+  const handleMostrarProductos = async () => {
+    const data = await cargarProductos();
+    let filtrados = data;
+    if (categoriaSeleccionada) {
+      filtrados = filtrados.filter(p => p.categoria === categoriaSeleccionada);
+    }
+    if (subcategoriaSeleccionada) {
+      filtrados = filtrados.filter(p => p.subcategoria === subcategoriaSeleccionada);
+    }
+    setProductosFiltrados(filtrados);
+    setMostrarTabla(true);
   };
 
-  // Función que se ejecuta al presionar el botón "Limpiar Filtros"
+  // Limpiar filtros y ocultar tabla
   const handleLimpiarFiltros = () => {
-    setCategoriaSeleccionada(''); // Resetea la categoría
-    setSubcategoriaSeleccionada(''); // Resetea la subcategoría
-    setMostrarTabla(false); // Oculta la tabla
-    setProductosFiltrados([]); // Limpia los productos filtrados
+    setCategoriaSeleccionada('');
+    setSubcategoriaSeleccionada('');
+    setMostrarTabla(false);
+    setProductosFiltrados([]);
   };
 
-  // Función que se ejecuta al presionar el botón "Eliminar" de un producto
+  // Eliminar producto
   const handleEliminarProducto = (producto) => {
-    setProductoAEliminar(producto); // Guarda el producto a eliminar
-    setModalEliminar(true); // Muestra el modal de confirmación
+    setProductoAEliminar(producto);
+    setModalEliminar(true);
   };
 
-  // Función que se ejecuta cuando se confirma la eliminación en el modal
+  // Confirmar eliminación
   const handleConfirmarEliminacion = async (productoId) => {
     try {
-      // Llamar a la función de API para eliminar el producto
       await eliminarProducto(productoId);
-      
-      // Actualizar la lista de productos eliminando el producto borrado
       setProductos(productos.filter(p => p._id !== productoId));
       setProductosFiltrados(productosFiltrados.filter(p => p._id !== productoId));
-      
     } catch (error) {
       console.error('Error al eliminar producto:', error);
-      throw error; // Re-lanzar el error para que el modal lo maneje
+      throw error;
     }
   };
 
-  // Si está cargando, muestra un mensaje de carga
+  // Editar producto
+  const handleEditarClick = (producto) => {
+    setProductoSeleccionado(producto);
+    setIsModalOpen(true);
+  };
+
+  // Guardar cambios de edición
+  const handleGuardarCambios = async (productoEditado) => {
+    try {
+      await fetch(`${API_URL}/productos/${productoEditado._id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(productoEditado),
+      });
+      await cargarProductos();
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error("Error al guardar los cambios:", error);
+    }
+  };
+
   if (loading) {
     return <p>Cargando productos...</p>;
   }
@@ -106,70 +127,62 @@ function TablaProductos() {
   return (
     <div>
       <h3>Filtros de Productos</h3>
-      
-      {/* Selector de categoría - permite elegir una categoría específica */}
+      {/* Selector de categoría */}
       <div style={{ marginBottom: '10px' }}>
         <label>Categoría: </label>
-        <select 
-          value={categoriaSeleccionada} // Muestra la categoría seleccionada
+        <select
+          value={categoriaSeleccionada}
           onChange={(e) => {
-            setCategoriaSeleccionada(e.target.value); // Guarda la nueva categoría
-            setSubcategoriaSeleccionada(''); // Resetear subcategoría cuando cambias categoría
+            setCategoriaSeleccionada(e.target.value);
+            setSubcategoriaSeleccionada('');
           }}
           style={{ marginLeft: '10px', padding: '5px' }}
         >
           <option value="">Todas las categorías</option>
-          {/* Genera una opción por cada categoría única */}
           {categorias.map(cat => (
             <option key={cat} value={cat}>{cat}</option>
           ))}
         </select>
       </div>
-
-      {/* Selector de subcategoría - solo se muestra si hay categoría seleccionada */}
+      {/* Selector de subcategoría */}
       {categoriaSeleccionada && (
         <div style={{ marginBottom: '10px' }}>
           <label>Subcategoría: </label>
-          <select 
-            value={subcategoriaSeleccionada} // Muestra la subcategoría seleccionada
-            onChange={(e) => setSubcategoriaSeleccionada(e.target.value)} // Guarda la nueva subcategoría
+          <select
+            value={subcategoriaSeleccionada}
+            onChange={(e) => setSubcategoriaSeleccionada(e.target.value)}
             style={{ marginLeft: '10px', padding: '5px' }}
           >
             <option value="">Todas las subcategorías</option>
-            {/* Genera una opción por cada subcategoría de la categoría seleccionada */}
             {subcategorias.map(subcat => (
               <option key={subcat} value={subcat}>{subcat}</option>
             ))}
           </select>
         </div>
       )}
-
-      {/* Botones de control - para mostrar productos y limpiar filtros */}
+      {/* Botones de control */}
       <div style={{ marginBottom: '20px' }}>
-        {/* Botón para mostrar la tabla de productos */}
-        <button 
-          onClick={handleMostrarProductos} // Ejecuta la función cuando se presiona
-          style={{ 
-            marginRight: '10px', 
-            padding: '8px 16px', 
-            backgroundColor: '#007bff', 
-            color: 'white', 
-            border: 'none', 
+        <button
+          onClick={handleMostrarProductos}
+          style={{
+            marginRight: '10px',
+            padding: '8px 16px',
+            backgroundColor: '#007bff',
+            color: 'white',
+            border: 'none',
             borderRadius: '4px',
             cursor: 'pointer'
           }}
         >
           Mostrar Productos
         </button>
-        
-        {/* Botón para limpiar todos los filtros y ocultar la tabla */}
-        <button 
-          onClick={handleLimpiarFiltros} // Ejecuta la función cuando se presiona
-          style={{ 
-            padding: '8px 16px', 
-            backgroundColor: '#6c757d', 
-            color: 'white', 
-            border: 'none', 
+        <button
+          onClick={handleLimpiarFiltros}
+          style={{
+            padding: '8px 16px',
+            backgroundColor: '#6c757d',
+            color: 'white',
+            border: 'none',
             borderRadius: '4px',
             cursor: 'pointer'
           }}
@@ -177,20 +190,14 @@ function TablaProductos() {
           Limpiar Filtros
         </button>
       </div>
-
-      {/* Tabla de productos - solo se muestra si mostrarTabla es true */}
+      {/* Tabla de productos */}
       {mostrarTabla && (
         <div>
-          {/* Muestra el número de productos encontrados con los filtros */}
           <h4>Productos encontrados: {productosFiltrados.length}</h4>
-          
-          {/* Si no hay productos filtrados, muestra un mensaje */}
           {productosFiltrados.length === 0 ? (
             <p>No hay productos con los filtros seleccionados</p>
           ) : (
-            /* Tabla con los productos filtrados */
             <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '10px' }}>
-              {/* Encabezados de la tabla */}
               <thead>
                 <tr style={{ backgroundColor: '#f8f9fa' }}>
                   <th style={{ border: '1px solid #ddd', padding: '8px' }}>Nombre</th>
@@ -201,20 +208,19 @@ function TablaProductos() {
                   <th style={{ border: '1px solid #ddd', padding: '8px' }}>Acciones</th>
                 </tr>
               </thead>
-              {/* Cuerpo de la tabla - genera una fila por cada producto */}
               <tbody>
                 {productosFiltrados.map((producto) => (
-                  <tr key={producto._id}> {/* _id es el identificador único de MongoDB */}
+                  <tr key={producto._id}>
                     <td style={{ border: '1px solid #ddd', padding: '8px' }}>{producto.nombre}</td>
                     <td style={{ border: '1px solid #ddd', padding: '8px' }}>{producto.categoria}</td>
                     <td style={{ border: '1px solid #ddd', padding: '8px' }}>{producto.subcategoria}</td>
                     <td style={{ border: '1px solid #ddd', padding: '8px' }}>€{producto.precio}</td>
                     <td style={{ border: '1px solid #ddd', padding: '8px' }}>{producto.stock}</td>
                     <td style={{ border: '1px solid #ddd', padding: '8px' }}>
-                      {/* Botones de acciones para cada producto */}
-                      <button 
-                        style={{ 
-                          marginRight: '5px', 
+                      <button
+                        onClick={() => handleEditarClick(producto)}
+                        style={{
+                          marginRight: '5px',
                           padding: '4px 8px',
                           backgroundColor: '#007bff',
                           color: 'white',
@@ -225,9 +231,9 @@ function TablaProductos() {
                       >
                         ✏️ Editar
                       </button>
-                      <button 
+                      <button
                         onClick={() => handleEliminarProducto(producto)}
-                        style={{ 
+                        style={{
                           padding: '4px 8px',
                           backgroundColor: '#dc3545',
                           color: 'white',
@@ -246,8 +252,7 @@ function TablaProductos() {
           )}
         </div>
       )}
-
-      {/* Modal de confirmación para eliminar producto */}
+      {/* Modales */}
       <ModalEliminarProducto
         producto={productoAEliminar}
         isOpen={modalEliminar}
@@ -256,6 +261,12 @@ function TablaProductos() {
           setProductoAEliminar(null);
         }}
         onConfirm={handleConfirmarEliminacion}
+      />
+      <ModalEditarProducto
+        producto={productoSeleccionado}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={handleGuardarCambios}
       />
     </div>
   );

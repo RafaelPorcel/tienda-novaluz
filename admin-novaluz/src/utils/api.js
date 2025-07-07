@@ -1,5 +1,5 @@
 // Funciones para conectar con el backend
-const API_URL = 'http://localhost:5000/api';
+export const API_URL = 'http://localhost:5000/api';
 
 // Obtener todos los productos
 export const getProductos = async () => {
