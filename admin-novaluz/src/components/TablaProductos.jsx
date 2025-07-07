@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getProductos, eliminarProducto } from '../utils/api';
+import { getProductos, eliminarProducto, actualizarProducto } from '../utils/api';
 import ModalEliminarProducto from './modals/ModalEliminarProducto';
 import ModalEditarProducto from "./modals/ModalEditarProducto";
 import { API_URL } from '../utils/api';
@@ -108,11 +108,7 @@ function TablaProductos() {
   // Guardar cambios de edición
   const handleGuardarCambios = async (productoEditado) => {
     try {
-      await fetch(`${API_URL}/productos/${productoEditado._id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(productoEditado),
-      });
+      await actualizarProducto(productoEditado);
       await cargarProductos();
       setIsModalOpen(false);
     } catch (error) {

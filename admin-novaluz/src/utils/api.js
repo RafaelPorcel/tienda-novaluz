@@ -49,3 +49,20 @@ export const eliminarProducto = async (id) => {
     throw error;
   }
 };
+
+// Actualizar un producto existente
+export const actualizarProducto = async (producto) => {
+  try {
+    const response = await fetch(`${API_URL}/productos/${producto._id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(producto),
+    });
+    return await response.json();
+  } catch (error) {
+    console.error('Error al actualizar producto:', error);
+    throw error;
+  }
+};
