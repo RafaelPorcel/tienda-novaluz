@@ -10,28 +10,16 @@ function PageAñadirProducto() {
 
   return (
     <div>
-      {/* Título de la página */}
-      <h2>Añadir nuevo producto</h2>
-      
-      {/* Botón de navegación para volver a la página de productos */}
-      <div style={{ marginBottom: '20px' }}>
+      <div className="añadir-cabecera-flex">
         <button
-          onClick={() => navigate("/productos")} // Al hacer clic, navega a la ruta /productos
-          style={{
-            marginRight: '10px',
-            padding: '8px 16px',
-            backgroundColor: '#6c757d', // Color gris para diferenciarlo de botones de acción
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer'
-          }}
+          onClick={() => navigate("/productos")}
+          className="añadir-cabecera-volver"
         >
-          ← Volver a Productos {/* Flecha indica que es un botón de "volver" */}
+          ← Volver a Productos
         </button>
+        <h1 className="añadir-cabecera-titulo">Panel de Administración NOVALUZ</h1>
       </div>
-      
-      {/* Renderiza el componente que contiene el formulario de alta de producto */}
+      <h2 className="añadir-cabecera-subtitulo">Añadir nuevo producto</h2>
       <AñadirProducto />
     </div>
   );

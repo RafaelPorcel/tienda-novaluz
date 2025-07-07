@@ -1,5 +1,6 @@
 // Importamos React y el hook useState para manejar los estados del formulario
 import React, { useState } from "react";
+import './AñadirProducto.css';
 // Importamos la función para crear productos en el backend
 import { crearProducto } from '../utils/api';
 
@@ -137,93 +138,32 @@ function AñadirProducto() {
     setOtros("");
   };
 
-  // Estilos comunes para los campos
-  const inputStyle = {
-    width: "100%",
-    padding: "8px",
-    marginBottom: "10px",
-    border: "1px solid #ddd",
-    borderRadius: "4px",
-    fontSize: "14px"
-  };
-
-  // Estilo para campos obligatorios
-  const inputRequiredStyle = {
-    ...inputStyle,
-    border: "2px solid #dc3545",
-    backgroundColor: "#fff5f5"
-  };
-
-  const labelStyle = {
-    display: "block",
-    marginBottom: "5px",
-    fontWeight: "bold",
-    color: "#333"
-  };
-
-  // Estilo para etiquetas de campos obligatorios
-  const labelRequiredStyle = {
-    ...labelStyle,
-    color: "#dc3545"
-  };
-
-  const sectionStyle = {
-    border: "1px solid #e0e0e0",
-    borderRadius: "8px",
-    padding: "20px",
-    marginBottom: "20px",
-    backgroundColor: "#f9f9f9"
-  };
-
-  const sectionTitleStyle = {
-    fontSize: "18px",
-    fontWeight: "bold",
-    marginBottom: "15px",
-    color: "#2c3e50",
-    borderBottom: "2px solid #3498db",
-    paddingBottom: "5px"
-  };
-
   return (
-    <div style={{ maxWidth: "800px", margin: "0 auto", padding: "20px" }}>
+    <div className="añadir-producto-container">
       <form onSubmit={handleSubmit}>
         {/* SECCIÓN 1: Información básica */}
-        <div style={sectionStyle}>
-          <h3 style={sectionTitleStyle}>📋 Información Básica</h3>
-          
-          <div>
-            <label style={labelRequiredStyle}>Nombre del producto *</label>
-            <input
-              type="text"
-              value={nombre}
-              onChange={(e) => setNombre(e.target.value)}
-              style={inputRequiredStyle}
-              placeholder="Ej: Ventilador de techo industrial"
-              required
-            />
-          </div>
-
-          <div>
-            <label style={labelStyle}>Descripción</label>
-            <textarea
-              value={descripcion}
-              onChange={(e) => setDescripcion(e.target.value)}
-              style={{ ...inputStyle, minHeight: "80px", resize: "vertical" }}
-              placeholder="Describe las características principales del producto..."
-            />
-          </div>
-
-          <div style={{ display: "flex", gap: "20px" }}>
-            <div style={{ flex: 1 }}>
-              <label style={labelRequiredStyle}>Categoría *</label>
+        <div className="ap-section">
+          <h3 className="ap-section-title">📋 Información Básica</h3>
+          <div className="ap-row">
+            <div className="ap-label-input-group">
+              <label className="ap-label-left">Nombre *</label>
+              <input
+                type="text"
+                value={nombre}
+                onChange={(e) => setNombre(e.target.value)}
+                className="ap-input-required"
+                required
+                placeholder="Ej: Ventilador de techo industrial"
+              />
+            </div>
+            <div className="ap-label-input-group">
+              <label className="ap-label-left">Categoría *</label>
               <select
                 value={categoria}
-                onChange={(e) => {
-                  setCategoria(e.target.value);
-                  setSubcategoria(""); // Resetear subcategoría al cambiar categoría
-                }}
-                style={inputRequiredStyle}
+                onChange={(e) => setCategoria(e.target.value)}
+                className="ap-input-required"
                 required
+                aria-label="Categoría *"
               >
                 <option value="">Selecciona una categoría</option>
                 {categorias.map(cat => (
@@ -231,270 +171,224 @@ function AñadirProducto() {
                 ))}
               </select>
             </div>
-
-            <div style={{ flex: 1 }}>
-              <label style={labelRequiredStyle}>Subcategoría *</label>
+            <div className="ap-label-input-group">
+              <label className="ap-label-left">Subcategoría *</label>
               <select
                 value={subcategoria}
                 onChange={(e) => setSubcategoria(e.target.value)}
-                style={inputRequiredStyle}
+                className="ap-input-required"
                 disabled={!categoria}
                 required
+                aria-label="Subcategoría *"
               >
                 <option value="">Selecciona una subcategoría</option>
-                {categoria &&
-                  subcategoriasPorCategoria[categoria].map(subcat => (
-                    <option key={subcat} value={subcat}>{subcat}</option>
-                  ))}
+                {categoria && subcategoriasPorCategoria[categoria]?.map(subcat => (
+                  <option key={subcat} value={subcat}>{subcat}</option>
+                ))}
               </select>
             </div>
-          </div>
-        </div>
-
-        {/* SECCIÓN 2: Precio y stock */}
-        <div style={sectionStyle}>
-          <h3 style={sectionTitleStyle}>💰 Precio y Stock</h3>
-          
-          <div style={{ display: "flex", gap: "20px" }}>
-            <div style={{ flex: 1 }}>
-              <label style={labelRequiredStyle}>Precio (€) *</label>
+            <div className="ap-label-input-group">
+              <label className="ap-label-left">Precio (€) *</label>
               <input
                 type="number"
                 value={precio}
                 onChange={(e) => setPrecio(e.target.value)}
-                style={inputRequiredStyle}
+                className="ap-input-required"
                 min="0"
                 step="0.01"
-                placeholder="Ej: 29.99"
                 required
-              />
-            </div>
-
-            <div style={{ flex: 1 }}>
-              <label style={labelStyle}>Stock disponible</label>
-              <input
-                type="number"
-                value={stock}
-                onChange={(e) => setStock(e.target.value)}
-                style={inputStyle}
-                min="0"
-                step="1"
-                placeholder="Ej: 10"
+                placeholder="Ej: 29.99"
               />
             </div>
           </div>
         </div>
-
+        {/* SECCIÓN 2: Información adicional */}
+        <div className="ap-section">
+          <h3 className="ap-section-title">📝 Información Adicional</h3>
+          <div className="ap-row">
+            <div className="ap-label-input-group stock-group">
+              <label className="ap-label-left">Stock</label>
+              <input
+                type="number"
+                value={stock}
+                onChange={(e) => setStock(e.target.value)}
+                className="ap-input"
+                min="0"
+                placeholder="Ej: 10"
+              />
+            </div>
+            <div className="ap-label-input-group img-group">
+              <label className="ap-label-left">Imagen (URL)</label>
+              <input
+                type="text"
+                value={imagen}
+                onChange={(e) => setImagen(e.target.value)}
+                className="ap-input"
+                placeholder="https://ejemplo.com/imagen.jpg"
+              />
+            </div>
+          </div>
+          <div className="ap-label-input-group descripcion-group">
+            <label className="ap-label-left">Descripción</label>
+            <textarea
+              value={descripcion}
+              onChange={(e) => setDescripcion(e.target.value)}
+              className="ap-input"
+              rows={2}
+              placeholder="Añade una descripción..."
+            />
+          </div>
+        </div>
         {/* SECCIÓN 3: Características técnicas */}
-        <div style={sectionStyle}>
-          <h3 style={sectionTitleStyle}>⚡ Características Técnicas</h3>
-          
-          <div style={{ display: "flex", gap: "20px" }}>
-            <div style={{ flex: 1 }}>
-              <label style={labelStyle}>Marca</label>
+        <div className="ap-section">
+          <h3 className="ap-section-title">⚙️ Características Técnicas</h3>
+          <div className="ap-row">
+            <div className="ap-label-input-group">
+              <label className="ap-label-left">Marca</label>
               <input
                 type="text"
                 value={marca}
                 onChange={(e) => setMarca(e.target.value)}
-                style={inputStyle}
-                placeholder="Ej: Philips, Osram..."
+                className="ap-input"
+                placeholder="Ej: Osram, Philips..."
               />
             </div>
-
-            <div style={{ flex: 1 }}>
-              <label style={labelStyle}>Potencia</label>
+            <div className="ap-label-input-group">
+              <label className="ap-label-left">Potencia</label>
               <input
                 type="text"
                 value={potencia}
                 onChange={(e) => setPotencia(e.target.value)}
-                style={inputStyle}
+                className="ap-input"
                 placeholder="Ej: 60W, 100W..."
               />
             </div>
-
-            <div style={{ flex: 1 }}>
-              <label style={labelStyle}>Peso (kg)</label>
+            <div className="ap-label-input-group">
+              <label className="ap-label-left">Peso (kg)</label>
               <input
                 type="number"
                 value={peso}
                 onChange={(e) => setPeso(e.target.value)}
-                style={inputStyle}
+                className="ap-input"
                 min="0"
-                step="0.1"
+                step="0.01"
                 placeholder="Ej: 2.5"
               />
             </div>
           </div>
         </div>
-
         {/* SECCIÓN 4: Medidas del producto */}
-        <div style={sectionStyle}>
-          <h3 style={sectionTitleStyle}>📏 Medidas del Producto (cm)</h3>
-          
-          <div style={{ display: "flex", gap: "20px" }}>
-            <div style={{ flex: 1 }}>
-              <label style={labelStyle}>Alto</label>
+        <div className="ap-section">
+          <h3 className="ap-section-title">📏 Medidas del Producto</h3>
+          <div className="ap-row">
+            <div className="ap-label-input-group">
+              <label className="ap-label-left">Alto (cm)</label>
               <input
                 type="number"
                 value={medidasAlto}
                 onChange={(e) => setMedidasAlto(e.target.value)}
-                style={inputStyle}
+                className="ap-input"
                 min="0"
-                step="0.1"
+                step="0.01"
                 placeholder="Ej: 30.5"
               />
             </div>
-
-            <div style={{ flex: 1 }}>
-              <label style={labelStyle}>Ancho</label>
+            <div className="ap-label-input-group">
+              <label className="ap-label-left">Ancho (cm)</label>
               <input
                 type="number"
                 value={medidasAncho}
                 onChange={(e) => setMedidasAncho(e.target.value)}
-                style={inputStyle}
+                className="ap-input"
                 min="0"
-                step="0.1"
+                step="0.01"
                 placeholder="Ej: 25.0"
               />
             </div>
-
-            <div style={{ flex: 1 }}>
-              <label style={labelStyle}>Largo</label>
+            <div className="ap-label-input-group">
+              <label className="ap-label-left">Largo (cm)</label>
               <input
                 type="number"
                 value={medidasLargo}
                 onChange={(e) => setMedidasLargo(e.target.value)}
-                style={inputStyle}
+                className="ap-input"
                 min="0"
-                step="0.1"
+                step="0.01"
                 placeholder="Ej: 15.2"
               />
             </div>
           </div>
         </div>
-
         {/* SECCIÓN 5: Medidas del embalaje */}
-        <div style={sectionStyle}>
-          <h3 style={sectionTitleStyle}>📦 Medidas del Embalaje (cm)</h3>
-          
-          <div style={{ display: "flex", gap: "20px" }}>
-            <div style={{ flex: 1 }}>
-              <label style={labelStyle}>Alto</label>
+        <div className="ap-section">
+          <h3 className="ap-section-title">📦 Medidas del Embalaje</h3>
+          <div className="ap-row">
+            <div className="ap-label-input-group">
+              <label className="ap-label-left">Alto embalaje (cm)</label>
               <input
                 type="number"
                 value={embalajeAlto}
                 onChange={(e) => setEmbalajeAlto(e.target.value)}
-                style={inputStyle}
+                className="ap-input"
                 min="0"
-                step="0.1"
+                step="0.01"
                 placeholder="Ej: 35.0"
               />
             </div>
-
-            <div style={{ flex: 1 }}>
-              <label style={labelStyle}>Ancho</label>
+            <div className="ap-label-input-group">
+              <label className="ap-label-left">Ancho embalaje (cm)</label>
               <input
                 type="number"
                 value={embalajeAncho}
                 onChange={(e) => setEmbalajeAncho(e.target.value)}
-                style={inputStyle}
+                className="ap-input"
                 min="0"
-                step="0.1"
+                step="0.01"
                 placeholder="Ej: 30.0"
               />
             </div>
-
-            <div style={{ flex: 1 }}>
-              <label style={labelStyle}>Largo</label>
+            <div className="ap-label-input-group">
+              <label className="ap-label-left">Largo embalaje (cm)</label>
               <input
                 type="number"
                 value={embalajeLargo}
                 onChange={(e) => setEmbalajeLargo(e.target.value)}
-                style={inputStyle}
+                className="ap-input"
                 min="0"
-                step="0.1"
+                step="0.01"
                 placeholder="Ej: 20.0"
               />
             </div>
           </div>
         </div>
-
-        {/* SECCIÓN 6: Imagen y otros */}
-        <div style={sectionStyle}>
-          <h3 style={sectionTitleStyle}>🖼️ Imagen y Otros</h3>
-          
-          <div>
-            <label style={labelStyle}>URL de la imagen</label>
-            <input
-              type="url"
-              value={imagen}
-              onChange={(e) => setImagen(e.target.value)}
-              style={inputStyle}
-              placeholder="https://ejemplo.com/imagen.jpg"
-            />
-          </div>
-
-          <div>
-            <label style={labelStyle}>Información adicional</label>
-            <textarea
-              value={otros}
-              onChange={(e) => setOtros(e.target.value)}
-              style={{ ...inputStyle, minHeight: "60px", resize: "vertical" }}
-              placeholder="Cualquier información adicional sobre el producto..."
-            />
+        {/* SECCIÓN 6: Otros campos */}
+        <div className="ap-section">
+          <h3 className="ap-section-title">🗂️ Otros</h3>
+          <div className="ap-row">
+            <div className="ap-label-input-group otros-group">
+              <label className="ap-label-left">Otros</label>
+              <input
+                type="text"
+                value={otros}
+                onChange={(e) => setOtros(e.target.value)}
+                className="ap-input"
+                placeholder="Cualquier información adicional..."
+              />
+            </div>
           </div>
         </div>
-
-        {/* Mensajes de validación */}
+        {/* Mensaje de validación */}
         {mensaje && (
-          <div style={{
-            padding: "10px",
-            marginBottom: "20px",
-            borderRadius: "4px",
-            backgroundColor: mensaje.includes("error") ? "#f8d7da" : "#d4edda",
-            color: mensaje.includes("error") ? "#721c24" : "#155724",
-            border: `1px solid ${mensaje.includes("error") ? "#f5c6cb" : "#c3e6cb"}`
-          }}>
-            {mensaje}
-          </div>
+          <div className={`ap-mensaje${mensaje.includes('✅') ? ' exito' : ''}`}>{mensaje}</div>
         )}
-
-        {/* Botones de acción */}
-        <div style={{ display: "flex", gap: "15px", justifyContent: "center" }}>
-          <button
-            type="submit"
-            disabled={enviando}
-            style={{
-              padding: "12px 30px",
-              backgroundColor: enviando ? "#6c757d" : "#28a745",
-              color: "white",
-              border: "none",
-              borderRadius: "6px",
-              fontSize: "16px",
-              cursor: enviando ? "not-allowed" : "pointer",
-              fontWeight: "bold"
-            }}
-          >
-            {enviando ? "⏳ Guardando..." : "💾 Guardar Producto"}
-          </button>
-
-          <button
-            type="button"
-            onClick={limpiarFormulario}
-            disabled={enviando}
-            style={{
-              padding: "12px 30px",
-              backgroundColor: "#6c757d",
-              color: "white",
-              border: "none",
-              borderRadius: "6px",
-              fontSize: "16px",
-              cursor: enviando ? "not-allowed" : "pointer"
-            }}
-          >
-            🗑️ Limpiar Formulario
-          </button>
-        </div>
+        {/* Botón de enviar */}
+        <button
+          type="submit"
+          className="ap-boton"
+          disabled={enviando}
+        >
+          {enviando ? 'Guardando...' : 'Guardar Producto'}
+        </button>
       </form>
     </div>
   );

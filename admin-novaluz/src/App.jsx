@@ -12,8 +12,6 @@ function App() {
     // BrowserRouter envuelve toda la app y habilita la navegación entre páginas
     <BrowserRouter>
       <div>
-        {/* Título principal del panel de administración, siempre visible */}
-        <h1>Panel de Administración NOVALUZ</h1>
         {/* Definición de las rutas de la aplicación */}
         <Routes>
           {/* Si la ruta es '/', redirige automáticamente a '/productos' */}

@@ -1,0 +1,262 @@
+/* Contenedor principal */
+.añadir-producto-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Sección del formulario */
+  .ap-section {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 2px 18px;
+    margin-bottom: 6px;
+    background-color: #e3e6ea;
+    box-sizing: border-box;
+    overflow: hidden;
+    max-width: 980px;
+  }
+  
+  /* Título de sección */
+  .ap-section-title {
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 2px;
+    color: #2c3e50;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 1px;
+    line-height: 1.1;
+  }
+  
+  /* Etiquetas */
+  .ap-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .ap-label-required {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #dc3545;
+  }
+  
+  /* Inputs */
+  .ap-input,
+  .ap-input-required,
+  textarea.ap-input {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .ap-input-required {
+    border: 2px solid #dc3545;
+    background-color: #fff5f5;
+  }
+  
+  /* Mensaje de validación */
+  .ap-mensaje {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 15px;
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+  }
+  
+  .ap-mensaje.exito {
+    color: #155724;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+  }
+  
+  /* Botón de enviar */
+  .ap-boton {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .ap-boton:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+  }
+
+  .ap-row {
+    display: flex;
+    flex-direction: row;
+    gap: 28px;
+    margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .ap-stock-group {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .ap-img-group {
+    flex: 2 1 0;
+    min-width: 0;
+  }
+
+  .ap-row > div {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .añadir-header-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    margin-bottom: 0;
+    gap: 16px;
+    margin-top: -38px;
+  }
+
+  .añadir-header-row h2 {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+    line-height: 1.1;
+  }
+
+  .añadir-header-row button {
+    margin: 0;
+  }
+
+  .añadir-cabecera-flex {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 2px;
+    gap: 0;
+    margin-top: -18px;
+    position: relative;
+  }
+
+  .añadir-cabecera-volver {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 14px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin: 0;
+    align-self: flex-start;
+  }
+
+  .añadir-cabecera-titulo {
+    margin: 0 auto;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    flex: 0 1 auto;
+  }
+
+  .añadir-cabecera-subtitulo {
+    margin: 0 0 8px 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: center;
+    color: #007bff;
+  }
+
+  .ap-label-input-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+  }
+
+  .ap-label-input-group input,
+  .ap-label-input-group select,
+  .ap-label-input-group textarea {
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: 220px;
+  }
+
+  .ap-label-input-group textarea {
+    resize: vertical;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    margin-top: 2px;
+    margin-bottom: 2px;
+  }
+
+  .ap-label-input-group.ap-img-group input {
+    min-width: 0;
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .ap-label-input-group.ap-stock-group input {
+    min-width: 0;
+    width: 100%;
+    max-width: 140px;
+  }
+
+  .ap-label-input-group.ap-label-left {
+    align-items: flex-start;
+  }
+
+  .ap-label-input-group.ap-otros-group input {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    margin-top: 2px;
+    margin-bottom: 2px;
+  }
+
+  .ap-label-input-group.otros-group input {
+    max-width: 95%;
+  }
+
+  .ap-label-input-group.descripcion-group textarea {
+    max-width: 95%;
+  }
+
+  .ap-label-left {
+    min-width: 90px;
+    font-size: 0.85rem;
+    color: #444;
+    margin-right: 8px;
+    white-space: nowrap;
+    font-weight: 500;
+    text-align: right;
+  }
+
+  .ap-label-input-group.img-group input {
+    max-width: 400px;
+  }
+
+  .ap-label-input-group.stock-group input {
+    max-width: 100px;
+  }
+
