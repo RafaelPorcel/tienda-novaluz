@@ -45,6 +45,9 @@
   color: #555;
   width: 38%;
 }
+.detailsTable tr:not(:last-child) {
+  border-bottom: 2px solid #e0e0e0;
+}
 
 .closeBtn {
   align-self: flex-end;
