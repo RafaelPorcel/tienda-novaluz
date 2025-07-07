@@ -7,9 +7,15 @@
 
 .filtros-productos {
   display: flex;
+  align-items: center;
   gap: 16px;
   margin-bottom: 16px;
-  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.filtros-productos > div,
+.filtros-botones {
+  margin-bottom: 0 !important;
 }
 
 .filtros-productos label {
