@@ -28,3 +28,24 @@ export const crearProducto = async (producto) => {
     throw error;
   }
 };
+
+// Eliminar un producto por ID
+export const eliminarProducto = async (id) => {
+  try {
+    const response = await fetch(`${API_URL}/productos/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    
+    if (!response.ok) {
+      throw new Error('Error al eliminar el producto');
+    }
+    
+    return await response.json();
+  } catch (error) {
+    console.error('Error al eliminar producto:', error);
+    throw error;
+  }
+};

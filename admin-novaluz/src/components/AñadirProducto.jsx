@@ -1,5 +1,7 @@
 // Importamos React y el hook useState para manejar los estados del formulario
 import React, { useState } from "react";
+// Importamos la función para crear productos en el backend
+import { crearProducto } from '../utils/api';
 
 // Definimos las categorías y subcategorías disponibles en el sistema
 const categorias = ["Ventiladores", "Lámparas", "Bombillas"];
@@ -43,6 +45,8 @@ function AñadirProducto() {
 
   // Estado para mensajes de validación
   const [mensaje, setMensaje] = useState("");
+  // Estado para controlar si se está enviando el formulario
+  const [enviando, setEnviando] = useState(false);
 
   // Función para validar que los campos obligatorios estén completos
   const validarCamposObligatorios = () => {
@@ -54,47 +58,62 @@ function AñadirProducto() {
   };
 
   // Función para manejar el envío del formulario
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
     // Validar campos obligatorios
     const error = validarCamposObligatorios();
     if (error) {
-      setMensaje(error);
+      setMensaje(`Error: ${error}`);
       return;
     }
 
-    // Crear objeto con todos los datos del producto
-    const nuevoProducto = {
-      nombre: nombre.trim(),
-      descripcion: descripcion.trim(),
-      categoria,
-      subcategoria,
-      precio: parseFloat(precio),
-      stock: parseInt(stock) || 0,
-      imagen: imagen.trim(),
-      medidas: {
-        alto: medidasAlto ? parseFloat(medidasAlto) : undefined,
-        ancho: medidasAncho ? parseFloat(medidasAncho) : undefined,
-        largo: medidasLargo ? parseFloat(medidasLargo) : undefined
-      },
-      embalaje: {
-        alto: embalajeAlto ? parseFloat(embalajeAlto) : undefined,
-        ancho: embalajeAncho ? parseFloat(embalajeAncho) : undefined,
-        largo: embalajeLargo ? parseFloat(embalajeLargo) : undefined
-      },
-      peso: peso ? parseFloat(peso) : undefined,
-      marca: marca.trim(),
-      potencia: potencia.trim(),
-      otros: otros.trim()
-    };
+    // Activar estado de envío
+    setEnviando(true);
+    setMensaje("Guardando producto...");
 
-    // TODO: Aquí irá la función para enviar al backend
-    console.log("Producto a guardar:", nuevoProducto);
-    setMensaje("Producto guardado correctamente");
-    
-    // Limpiar formulario después de guardar
-    limpiarFormulario();
+    try {
+      // Crear objeto con todos los datos del producto
+      const nuevoProducto = {
+        nombre: nombre.trim(),
+        descripcion: descripcion.trim(),
+        categoria,
+        subcategoria,
+        precio: parseFloat(precio),
+        stock: parseInt(stock) || 0,
+        imagen: imagen.trim(),
+        medidas: {
+          alto: medidasAlto ? parseFloat(medidasAlto) : undefined,
+          ancho: medidasAncho ? parseFloat(medidasAncho) : undefined,
+          largo: medidasLargo ? parseFloat(medidasLargo) : undefined
+        },
+        embalaje: {
+          alto: embalajeAlto ? parseFloat(embalajeAlto) : undefined,
+          ancho: embalajeAncho ? parseFloat(embalajeAncho) : undefined,
+          largo: embalajeLargo ? parseFloat(embalajeLargo) : undefined
+        },
+        peso: peso ? parseFloat(peso) : undefined,
+        marca: marca.trim(),
+        potencia: potencia.trim(),
+        otros: otros.trim()
+      };
+
+      // Enviar producto al backend
+      const productoGuardado = await crearProducto(nuevoProducto);
+      
+      // Mostrar mensaje de éxito
+      setMensaje("✅ Producto guardado correctamente en la base de datos");
+      
+      // Limpiar formulario después de guardar
+      limpiarFormulario();
+      
+    } catch (error) {
+      // Mostrar mensaje de error
+      setMensaje(`❌ Error al guardar el producto: ${error.message}`);
+    } finally {
+      // Desactivar estado de envío
+      setEnviando(false);
+    }
   };
 
   // Función para limpiar todos los campos del formulario
@@ -444,23 +463,25 @@ function AñadirProducto() {
         <div style={{ display: "flex", gap: "15px", justifyContent: "center" }}>
           <button
             type="submit"
+            disabled={enviando}
             style={{
               padding: "12px 30px",
-              backgroundColor: "#28a745",
+              backgroundColor: enviando ? "#6c757d" : "#28a745",
               color: "white",
               border: "none",
               borderRadius: "6px",
               fontSize: "16px",
-              cursor: "pointer",
+              cursor: enviando ? "not-allowed" : "pointer",
               fontWeight: "bold"
             }}
           >
-            💾 Guardar Producto
+            {enviando ? "⏳ Guardando..." : "💾 Guardar Producto"}
           </button>
 
           <button
             type="button"
             onClick={limpiarFormulario}
+            disabled={enviando}
             style={{
               padding: "12px 30px",
               backgroundColor: "#6c757d",
@@ -468,7 +489,7 @@ function AñadirProducto() {
               border: "none",
               borderRadius: "6px",
               fontSize: "16px",
-              cursor: "pointer"
+              cursor: enviando ? "not-allowed" : "pointer"
             }}
           >
             🗑️ Limpiar Formulario

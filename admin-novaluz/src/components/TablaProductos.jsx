@@ -1,6 +1,8 @@
 // Importamos los hooks necesarios de React y la función para obtener productos del backend
 import { useState, useEffect } from 'react';
-import { getProductos } from '../utils/api';
+import { getProductos, eliminarProducto } from '../utils/api';
+// Importamos el modal de eliminación
+import ModalEliminarProducto from './modals/ModalEliminarProducto';
 
 function TablaProductos() {
   // Estados para manejar los datos y la interfaz de usuario
@@ -10,6 +12,10 @@ function TablaProductos() {
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(''); // String con la categoría elegida en el selector
   const [subcategoriaSeleccionada, setSubcategoriaSeleccionada] = useState(''); // String con la subcategoría elegida en el selector
   const [mostrarTabla, setMostrarTabla] = useState(false); // Boolean que controla si se muestra la tabla (true = mostrar, false = ocultar)
+  
+  // Estados para el modal de eliminación
+  const [modalEliminar, setModalEliminar] = useState(false); // Boolean que controla si se muestra el modal
+  const [productoAEliminar, setProductoAEliminar] = useState(null); // Producto que se va a eliminar
 
   // Definimos las categorías y subcategorías disponibles en el sistema
   const categorias = ["Ventiladores", "Lámparas", "Bombillas"];
@@ -68,6 +74,28 @@ function TablaProductos() {
     setSubcategoriaSeleccionada(''); // Resetea la subcategoría
     setMostrarTabla(false); // Oculta la tabla
     setProductosFiltrados([]); // Limpia los productos filtrados
+  };
+
+  // Función que se ejecuta al presionar el botón "Eliminar" de un producto
+  const handleEliminarProducto = (producto) => {
+    setProductoAEliminar(producto); // Guarda el producto a eliminar
+    setModalEliminar(true); // Muestra el modal de confirmación
+  };
+
+  // Función que se ejecuta cuando se confirma la eliminación en el modal
+  const handleConfirmarEliminacion = async (productoId) => {
+    try {
+      // Llamar a la función de API para eliminar el producto
+      await eliminarProducto(productoId);
+      
+      // Actualizar la lista de productos eliminando el producto borrado
+      setProductos(productos.filter(p => p._id !== productoId));
+      setProductosFiltrados(productosFiltrados.filter(p => p._id !== productoId));
+      
+    } catch (error) {
+      console.error('Error al eliminar producto:', error);
+      throw error; // Re-lanzar el error para que el modal lo maneje
+    }
   };
 
   // Si está cargando, muestra un mensaje de carga
@@ -184,8 +212,32 @@ function TablaProductos() {
                     <td style={{ border: '1px solid #ddd', padding: '8px' }}>{producto.stock}</td>
                     <td style={{ border: '1px solid #ddd', padding: '8px' }}>
                       {/* Botones de acciones para cada producto */}
-                      <button style={{ marginRight: '5px', padding: '4px 8px' }}>Editar</button>
-                      <button style={{ padding: '4px 8px' }}>Eliminar</button>
+                      <button 
+                        style={{ 
+                          marginRight: '5px', 
+                          padding: '4px 8px',
+                          backgroundColor: '#007bff',
+                          color: 'white',
+                          border: 'none',
+                          borderRadius: '3px',
+                          cursor: 'pointer'
+                        }}
+                      >
+                        ✏️ Editar
+                      </button>
+                      <button 
+                        onClick={() => handleEliminarProducto(producto)}
+                        style={{ 
+                          padding: '4px 8px',
+                          backgroundColor: '#dc3545',
+                          color: 'white',
+                          border: 'none',
+                          borderRadius: '3px',
+                          cursor: 'pointer'
+                        }}
+                      >
+                        🗑️ Eliminar
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -194,6 +246,17 @@ function TablaProductos() {
           )}
         </div>
       )}
+
+      {/* Modal de confirmación para eliminar producto */}
+      <ModalEliminarProducto
+        producto={productoAEliminar}
+        isOpen={modalEliminar}
+        onClose={() => {
+          setModalEliminar(false);
+          setProductoAEliminar(null);
+        }}
+        onConfirm={handleConfirmarEliminacion}
+      />
     </div>
   );
 }
