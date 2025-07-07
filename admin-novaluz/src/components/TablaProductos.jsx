@@ -4,6 +4,7 @@ import ModalEliminarProducto from './modals/ModalEliminarProducto';
 import ModalEditarProducto from "./modals/ModalEditarProducto";
 import { API_URL } from '../utils/api';
 import './TablaProductos.css';
+import ModalVerProducto from './modals/ModalVerProducto';
 
 function TablaProductos() {
   // Estados principales
@@ -19,6 +20,8 @@ function TablaProductos() {
   const [productoAEliminar, setProductoAEliminar] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [productoSeleccionado, setProductoSeleccionado] = useState(null);
+  const [productoVer, setProductoVer] = useState(null);
+  const [modalVerAbierto, setModalVerAbierto] = useState(false);
 
   // Categorías y subcategorías
   const categorias = ["Ventiladores", "Lámparas", "Bombillas"];
@@ -30,18 +33,18 @@ function TablaProductos() {
   const subcategorias = categoriaSeleccionada ? subcategoriasPorCategoria[categoriaSeleccionada] || [] : [];
 
   // Función para cargar productos y devolver los datos
-  const cargarProductos = async () => {
-    try {
-      const data = await getProductos();
-      setProductos(data);
+    const cargarProductos = async () => {
+      try {
+        const data = await getProductos();
+        setProductos(data);
       return data;
-    } catch (error) {
-      console.error('Error al cargar productos:', error);
+      } catch (error) {
+        console.error('Error al cargar productos:', error);
       return [];
-    } finally {
-      setLoading(false);
-    }
-  };
+      } finally {
+        setLoading(false);
+      }
+    };
 
   // Cargar productos al montar el componente
   useEffect(() => {
@@ -163,27 +166,27 @@ function TablaProductos() {
       </div>
       {/* Tabla de productos */}
       {mostrarTabla && (
-        <div>
+    <div>
           <div className="tabla-productos-header">
             <h4>Productos encontrados: {productosFiltrados.length}</h4>
           </div>
           {productosFiltrados.length === 0 ? (
             <div className="tabla-productos-mensaje">No hay productos con los filtros seleccionados</div>
-          ) : (
+      ) : (
             <table className="tabla-productos-table">
-              <thead>
-                <tr>
+          <thead>
+            <tr>
                   <th>Nombre</th>
                   <th>Categoría</th>
                   <th>Subcategoría</th>
                   <th>Precio</th>
                   <th>Stock</th>
                   <th>Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
+            </tr>
+          </thead>
+          <tbody>
                 {productosFiltrados.map((producto) => (
-                  <tr key={producto._id}>
+              <tr key={producto._id}>
                     <td>{producto.nombre}</td>
                     <td>{producto.categoria}</td>
                     <td>{producto.subcategoria}</td>
@@ -202,12 +205,18 @@ function TablaProductos() {
                       >
                         🗑️ Eliminar
                       </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
+                      <button
+                        className="btn-ver"
+                        onClick={() => { setProductoVer(producto); setModalVerAbierto(true); }}
+                      >
+                        <span role="img" aria-label="ver">👁️</span> Ver completo
+                      </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
         </div>
       )}
       {/* Modales */}
@@ -225,6 +234,11 @@ function TablaProductos() {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onConfirm={handleGuardarCambios}
+      />
+      <ModalVerProducto
+        producto={productoVer}
+        isOpen={modalVerAbierto}
+        onClose={() => setModalVerAbierto(false)}
       />
     </div>
   );

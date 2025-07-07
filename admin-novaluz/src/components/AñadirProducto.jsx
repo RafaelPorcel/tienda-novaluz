@@ -147,58 +147,58 @@ function AñadirProducto() {
           <div className="ap-row">
             <div className="ap-label-input-group">
               <label className="ap-label-left">Nombre *</label>
-              <input
-                type="text"
-                value={nombre}
+          <input
+            type="text"
+            value={nombre}
                 onChange={(e) => setNombre(e.target.value)}
                 className="ap-input-required"
-                required
+            required
                 placeholder="Ej: Ventilador de techo industrial"
-              />
-            </div>
+          />
+        </div>
             <div className="ap-label-input-group">
               <label className="ap-label-left">Categoría *</label>
-              <select
-                value={categoria}
+          <select
+            value={categoria}
                 onChange={(e) => setCategoria(e.target.value)}
                 className="ap-input-required"
-                required
+            required
                 aria-label="Categoría *"
-              >
-                <option value="">Selecciona una categoría</option>
-                {categorias.map(cat => (
-                  <option key={cat} value={cat}>{cat}</option>
-                ))}
-              </select>
-            </div>
+          >
+            <option value="">Selecciona una categoría</option>
+            {categorias.map(cat => (
+              <option key={cat} value={cat}>{cat}</option>
+            ))}
+          </select>
+        </div>
             <div className="ap-label-input-group">
               <label className="ap-label-left">Subcategoría *</label>
-              <select
-                value={subcategoria}
+          <select
+            value={subcategoria}
                 onChange={(e) => setSubcategoria(e.target.value)}
                 className="ap-input-required"
                 disabled={!categoria}
-                required
+            required
                 aria-label="Subcategoría *"
-              >
-                <option value="">Selecciona una subcategoría</option>
+          >
+            <option value="">Selecciona una subcategoría</option>
                 {categoria && subcategoriasPorCategoria[categoria]?.map(subcat => (
-                  <option key={subcat} value={subcat}>{subcat}</option>
-                ))}
-              </select>
-            </div>
+                <option key={subcat} value={subcat}>{subcat}</option>
+              ))}
+          </select>
+        </div>
             <div className="ap-label-input-group">
               <label className="ap-label-left">Precio (€) *</label>
-              <input
-                type="number"
-                value={precio}
+          <input
+            type="number"
+            value={precio}
                 onChange={(e) => setPrecio(e.target.value)}
                 className="ap-input-required"
-                min="0"
-                step="0.01"
-                required
+            min="0"
+            step="0.01"
+            required
                 placeholder="Ej: 29.99"
-              />
+          />
             </div>
           </div>
         </div>
@@ -208,13 +208,13 @@ function AñadirProducto() {
           <div className="ap-row">
             <div className="ap-label-input-group stock-group">
               <label className="ap-label-left">Stock</label>
-              <input
-                type="number"
-                value={stock}
+          <input
+            type="number"
+            value={stock}
                 onChange={(e) => setStock(e.target.value)}
                 className="ap-input"
-                min="0"
-                placeholder="Ej: 10"
+            min="0"
+            placeholder="Ej: 10"
               />
             </div>
             <div className="ap-label-input-group img-group">

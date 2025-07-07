@@ -147,4 +147,33 @@
   background: #d4edda;
   color: #155724;
   border: 1px solid #c3e6cb;
+}
+
+.btn-ver {
+  background: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 12px 4px 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  margin-right: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.btn-ver:hover {
+  background: #218838;
+  color: #fff;
+}
+/* Mejorar separación de botones en la celda de acciones */
+.td-acciones button {
+  margin-right: 6px;
+}
+/* Ajustar ancho de la columna de acciones si es necesario */
+.th-acciones, .td-acciones {
+  min-width: 180px;
+  text-align: center;
 } 
