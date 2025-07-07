@@ -10,16 +10,16 @@ function PageAñadirProducto() {
 
   return (
     <div>
-      <div className="añadir-cabecera-flex">
+      <div className="cabecera-flex">
         <button
           onClick={() => navigate("/productos")}
           className="añadir-cabecera-volver"
         >
           ← Volver a Productos
         </button>
-        <h1 className="añadir-cabecera-titulo">Panel de Administración NOVALUZ</h1>
+        <h1 className="cabecera-titulo">Panel de Administración NOVALUZ</h1>
       </div>
-      <h2 className="añadir-cabecera-subtitulo">Añadir nuevo producto</h2>
+      <h2 className="cabecera-subtitulo">Añadir nuevo producto</h2>
       <AñadirProducto />
     </div>
   );

@@ -10,28 +10,10 @@ function Productos() {
 
     return (
         <div>
-            {/* Título de la página de gestión de productos */}
-            <h2>Gestión de Productos</h2>
-            
-            {/* Botón de navegación para ir a la página de añadir producto */}
-            <div style={{ marginBottom: '20px' }}>
-                <button
-                    onClick={() => navigate("/productos/nuevo")} // Al hacer clic, navega a la ruta /productos/nuevo
-                    style={{
-                        marginRight: '10px',
-                        padding: '8px 16px',
-                        backgroundColor: '#28a745', // Color verde para indicar acción positiva (añadir)
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '4px',
-                        cursor: 'pointer'
-                    }}
-                >
-                    Añadir Producto {/* Texto del botón */}
-                </button>
+            <div className="cabecera-flex">
+                <h1 className="cabecera-titulo">Panel de Administración NOVALUZ</h1>
             </div>
-            
-            {/* Renderiza el componente que contiene la tabla de productos y los filtros */}
+            <h2 className="cabecera-subtitulo">Tabla de Productos</h2>
             <TablaProductos />
         </div>
     );
