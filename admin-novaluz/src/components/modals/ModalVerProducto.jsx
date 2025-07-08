@@ -10,6 +10,7 @@ function ModalVerProducto({ producto, isOpen, onClose }) {
         <h2 className={styles.modalTitle}>📝 Detalle del Producto</h2>
         <table className={styles.detailsTable}>
           <tbody>
+            <tr><td>ID</td><td>{producto._id}</td></tr>
             <tr><td>Nombre</td><td>{producto.nombre}</td></tr>
             <tr><td>Descripción</td><td>{producto.descripcion}</td></tr>
             <tr><td>Categoría</td><td>{producto.categoria}</td></tr>
