@@ -176,4 +176,24 @@
 .th-acciones, .td-acciones {
   min-width: 180px;
   text-align: center;
+}
+
+.filtros-precio-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.input-precio {
+  width: 70px;
+  padding: 4px 6px;
+  font-size: 0.97rem;
+  border-radius: 4px;
+  border: 1px solid #bbb;
+}
+.input-categoria {
+  min-width: 140px;
+  padding: 5px 8px;
+  border-radius: 4px;
+  border: 1px solid #bbb;
+  font-size: 1rem;
 } 

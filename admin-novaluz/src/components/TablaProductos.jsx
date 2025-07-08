@@ -23,6 +23,13 @@ function TablaProductos() {
   const [productoVer, setProductoVer] = useState(null);
   const [modalVerAbierto, setModalVerAbierto] = useState(false);
 
+  // Añadir nuevos estados para los filtros avanzados
+  const [idFiltro, setIdFiltro] = useState("");
+  const [nombreFiltro, setNombreFiltro] = useState("");
+  const [marcaFiltro, setMarcaFiltro] = useState("");
+  const [precioMin, setPrecioMin] = useState("");
+  const [precioMax, setPrecioMax] = useState("");
+
   // Categorías y subcategorías
   const categorias = ["Ventiladores", "Lámparas", "Bombillas"];
   const subcategoriasPorCategoria = {
@@ -31,6 +38,13 @@ function TablaProductos() {
     "Bombillas": ["Halógenas", "LED", "Bajo consumo"]
   };
   const subcategorias = categoriaSeleccionada ? subcategoriasPorCategoria[categoriaSeleccionada] || [] : [];
+
+  // Calcular contadores por categoría y global
+  const totalGlobal = productos.length;
+  const conteoPorCategoria = categorias.reduce((acc, cat) => {
+    acc[cat] = productos.filter(p => p.categoria === cat).length;
+    return acc;
+  }, {});
 
   // Función para cargar productos y devolver los datos
     const cargarProductos = async () => {
@@ -64,14 +78,32 @@ function TablaProductos() {
   }, [productos, categoriaSeleccionada, subcategoriaSeleccionada]);
 
   // Mostrar productos: recarga y filtra con los datos recién traídos
-  const handleMostrarProductos = async () => {
-    const data = await cargarProductos();
-    let filtrados = data;
+  const handleMostrarProductos = () => {
+    let filtrados = productos;
+    if (idFiltro) {
+      filtrados = filtrados.filter(p => p._id && p._id.toLowerCase().includes(idFiltro.toLowerCase()));
+    }
+    if (nombreFiltro) {
+      filtrados = filtrados.filter(p =>
+        p.nombre && p.nombre.toLowerCase().includes(nombreFiltro.toLowerCase())
+      );
+    }
     if (categoriaSeleccionada) {
       filtrados = filtrados.filter(p => p.categoria === categoriaSeleccionada);
     }
     if (subcategoriaSeleccionada) {
       filtrados = filtrados.filter(p => p.subcategoria === subcategoriaSeleccionada);
+    }
+    if (marcaFiltro) {
+      filtrados = filtrados.filter(p =>
+        p.marca && p.marca.toLowerCase().includes(marcaFiltro.toLowerCase())
+      );
+    }
+    if (precioMin) {
+      filtrados = filtrados.filter(p => Number(p.precio) >= Number(precioMin));
+    }
+    if (precioMax) {
+      filtrados = filtrados.filter(p => Number(p.precio) <= Number(precioMax));
     }
     setProductosFiltrados(filtrados);
     setMostrarTabla(true);
@@ -79,8 +111,13 @@ function TablaProductos() {
 
   // Limpiar filtros y ocultar tabla
   const handleLimpiarFiltros = () => {
-    setCategoriaSeleccionada('');
-    setSubcategoriaSeleccionada('');
+    setCategoriaSeleccionada("");
+    setSubcategoriaSeleccionada("");
+    setIdFiltro("");
+    setNombreFiltro("");
+    setMarcaFiltro("");
+    setPrecioMin("");
+    setPrecioMax("");
     setMostrarTabla(false);
     setProductosFiltrados([]);
   };
@@ -126,7 +163,65 @@ function TablaProductos() {
 
   return (
     <div className="tabla-productos-container">
+      <div className="contadores-productos">
+        <span><b>Total productos:</b> {totalGlobal}</span>
+        {categorias.map(cat => (
+          <span key={cat} style={{marginLeft: '16px'}}><b>{cat}:</b> {conteoPorCategoria[cat]}</span>
+        ))}
+      </div>
       <div className="filtros-productos">
+        <div>
+          <label htmlFor="id-filtro">ID:</label>
+          <input
+            id="id-filtro"
+            type="text"
+            value={idFiltro}
+            onChange={e => setIdFiltro(e.target.value)}
+            placeholder="Buscar por ID"
+          />
+        </div>
+        <div>
+          <label htmlFor="nombre-filtro">Nombre:</label>
+          <input
+            id="nombre-filtro"
+            type="text"
+            value={nombreFiltro}
+            onChange={e => setNombreFiltro(e.target.value)}
+            placeholder="Buscar por nombre"
+          />
+        </div>
+        <div>
+          <label htmlFor="marca-filtro">Marca:</label>
+          <input
+            id="marca-filtro"
+            type="text"
+            value={marcaFiltro}
+            onChange={e => setMarcaFiltro(e.target.value)}
+            placeholder="Buscar por marca"
+          />
+        </div>
+        <div className="filtros-precio-group">
+          <label htmlFor="precio-min">Precio:</label>
+          <input
+            id="precio-min"
+            type="number"
+            value={precioMin}
+            onChange={e => setPrecioMin(e.target.value)}
+            placeholder="Mín"
+            min="0"
+            className="input-precio"
+          />
+          <span style={{margin: '0 4px'}}>-</span>
+          <input
+            id="precio-max"
+            type="number"
+            value={precioMax}
+            onChange={e => setPrecioMax(e.target.value)}
+            placeholder="Máx"
+            min="0"
+            className="input-precio"
+          />
+        </div>
         <div>
           <label htmlFor="categoria-select">Categoría:</label>
           <select
@@ -134,8 +229,9 @@ function TablaProductos() {
             value={categoriaSeleccionada}
             onChange={(e) => {
               setCategoriaSeleccionada(e.target.value);
-              setSubcategoriaSeleccionada('');
+              setSubcategoriaSeleccionada("");
             }}
+            className="input-categoria"
           >
             <option value="">Todas las categorías</option>
             {categorias.map(cat => (

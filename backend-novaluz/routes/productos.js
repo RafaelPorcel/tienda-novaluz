@@ -14,12 +14,19 @@ router.get('/', async (req, res) => {
 
 // Crear un producto nuevo
 router.post('/', async (req, res) => {
-  const producto = new Producto(req.body);
   try {
-    const nuevoProducto = await producto.save();
-    res.status(201).json(nuevoProducto);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
+    if (Array.isArray(req.body)) {
+      // Si es un array, insertamos todos los productos
+      const productos = await Producto.insertMany(req.body);
+      res.status(201).json(productos);
+    } else {
+      // Si es un solo producto, insertamos uno
+      const producto = new Producto(req.body);
+      await producto.save();
+      res.status(201).json(producto);
+    }
+  } catch (error) {
+    res.status(400).json({ message: error.message });
   }
 });
 
