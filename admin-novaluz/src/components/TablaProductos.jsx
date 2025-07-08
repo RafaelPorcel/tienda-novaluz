@@ -275,8 +275,8 @@ function TablaProductos() {
                   <th>Nombre</th>
                   <th>Categoría</th>
                   <th>Subcategoría</th>
-                  <th>Precio</th>
-                  <th>Stock</th>
+                  <th>Precio€</th>
+                  <th className="col-stock">Stock</th>
                   <th>Acciones</th>
             </tr>
           </thead>
@@ -286,8 +286,8 @@ function TablaProductos() {
                     <td>{producto.nombre}</td>
                     <td>{producto.categoria}</td>
                     <td>{producto.subcategoria}</td>
-                    <td>€{producto.precio}</td>
-                    <td>{producto.stock}</td>
+                    <td>{producto.precio}</td>
+                    <td className="col-stock">{producto.stock}</td>
                     <td className="tabla-productos-acciones">
                       <button
                         className="editar"
