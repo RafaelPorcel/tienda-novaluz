@@ -47,12 +47,12 @@ function ModalEditarProducto({ producto, isOpen, onClose, onConfirm }) {
       setMarca(producto.marca || "");
       setPotencia(producto.potencia || "");
       setPeso(producto.peso || "");
-      setMedidasAlto(producto.medidas?.alto || "");
-      setMedidasAncho(producto.medidas?.ancho || "");
-      setMedidasLargo(producto.medidas?.largo || "");
-      setEmbalajeAlto(producto.embalaje?.alto || "");
-      setEmbalajeAncho(producto.embalaje?.ancho || "");
-      setEmbalajeLargo(producto.embalaje?.largo || "");
+      setMedidasAlto(producto.medidasAlto || "");
+      setMedidasAncho(producto.medidasAncho || "");
+      setMedidasLargo(producto.medidasLargo || "");
+      setEmbalajeAlto(producto.embalajeAlto || "");
+      setEmbalajeAncho(producto.embalajeAncho || "");
+      setEmbalajeLargo(producto.embalajeLargo || "");
       setOtros(producto.otros || "");
       setMensaje("");
       setGuardando(false);
@@ -94,26 +94,18 @@ function ModalEditarProducto({ producto, isOpen, onClose, onConfirm }) {
     };
 
     // Solo incluir medidas si hay algún valor
-    const medidasObj = {};
-    if (medidasAlto !== "") medidasObj.alto = parseFloat(medidasAlto);
-    if (medidasAncho !== "") medidasObj.ancho = parseFloat(medidasAncho);
-    if (medidasLargo !== "") medidasObj.largo = parseFloat(medidasLargo);
-    if (Object.keys(medidasObj).length > 0) {
-      productoEditado.medidas = medidasObj;
-    }
+    if (medidasAlto !== "") productoEditado.medidasAlto = parseFloat(medidasAlto);
+    if (medidasAncho !== "") productoEditado.medidasAncho = parseFloat(medidasAncho);
+    if (medidasLargo !== "") productoEditado.medidasLargo = parseFloat(medidasLargo);
 
     // Solo incluir embalaje si hay algún valor
-    const embalajeObj = {};
-    if (embalajeAlto !== "") embalajeObj.alto = parseFloat(embalajeAlto);
-    if (embalajeAncho !== "") embalajeObj.ancho = parseFloat(embalajeAncho);
-    if (embalajeLargo !== "") embalajeObj.largo = parseFloat(embalajeLargo);
-    if (Object.keys(embalajeObj).length > 0) {
-      productoEditado.embalaje = embalajeObj;
-    }
+    if (embalajeAlto !== "") productoEditado.embalajeAlto = parseFloat(embalajeAlto);
+    if (embalajeAncho !== "") productoEditado.embalajeAncho = parseFloat(embalajeAncho);
+    if (embalajeLargo !== "") productoEditado.embalajeLargo = parseFloat(embalajeLargo);
 
     try {
       // Llama a la función onConfirm que viene del padre (TablaProductos)
-      // Enviamos el _id para que el backend sepa qué producto actualizar
+      // Enviamos el id para que el backend sepa qué producto actualizar
       await onConfirm({ ...producto, ...productoEditado });
       setMensaje("✅ Cambios guardados correctamente");
       setTimeout(() => {

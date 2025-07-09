@@ -4,8 +4,12 @@ export const API_URL = 'http://localhost:5000/api';
 // Obtener todos los productos
 export const getProductos = async () => {
   try {
+    console.log('Haciendo fetch a:', `${API_URL}/productos`);
     const response = await fetch(`${API_URL}/productos`);
-    return await response.json();
+    console.log('Response status:', response.status);
+    const data = await response.json();
+    console.log('Datos recibidos:', data);
+    return data;
   } catch (error) {
     console.error('Error al obtener productos:', error);
     return [];
@@ -53,7 +57,7 @@ export const eliminarProducto = async (id) => {
 // Actualizar un producto existente
 export const actualizarProducto = async (producto) => {
   try {
-    const response = await fetch(`${API_URL}/productos/${producto._id}`, {
+    const response = await fetch(`${API_URL}/productos/${producto.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

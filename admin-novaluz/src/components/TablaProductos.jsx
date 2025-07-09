@@ -49,12 +49,14 @@ function TablaProductos() {
   // Función para cargar productos y devolver los datos
     const cargarProductos = async () => {
       try {
+        console.log('Cargando productos...');
         const data = await getProductos();
+        console.log('Productos cargados:', data);
         setProductos(data);
-      return data;
+        return data;
       } catch (error) {
         console.error('Error al cargar productos:', error);
-      return [];
+        return [];
       } finally {
         setLoading(false);
       }
@@ -81,7 +83,7 @@ function TablaProductos() {
   const handleMostrarProductos = () => {
     let filtrados = productos;
     if (idFiltro) {
-      filtrados = filtrados.filter(p => p._id && p._id.toLowerCase().includes(idFiltro.toLowerCase()));
+      filtrados = filtrados.filter(p => p.id && p.id.toString().includes(idFiltro));
     }
     if (nombreFiltro) {
       filtrados = filtrados.filter(p =>
@@ -132,8 +134,8 @@ function TablaProductos() {
   const handleConfirmarEliminacion = async (productoId) => {
     try {
       await eliminarProducto(productoId);
-      setProductos(productos.filter(p => p._id !== productoId));
-      setProductosFiltrados(productosFiltrados.filter(p => p._id !== productoId));
+      setProductos(productos.filter(p => p.id !== productoId));
+      setProductosFiltrados(productosFiltrados.filter(p => p.id !== productoId));
     } catch (error) {
       console.error('Error al eliminar producto:', error);
       throw error;
@@ -282,7 +284,7 @@ function TablaProductos() {
           </thead>
           <tbody>
                 {productosFiltrados.map((producto) => (
-              <tr key={producto._id}>
+              <tr key={producto.id}>
                     <td>{producto.nombre}</td>
                     <td>{producto.categoria}</td>
                     <td>{producto.subcategoria}</td>

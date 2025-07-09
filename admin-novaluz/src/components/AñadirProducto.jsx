@@ -83,16 +83,12 @@ function AñadirProducto() {
         precio: parseFloat(precio),
         stock: parseInt(stock) || 0,
         imagen: imagen.trim(),
-        medidas: {
-          alto: medidasAlto ? parseFloat(medidasAlto) : undefined,
-          ancho: medidasAncho ? parseFloat(medidasAncho) : undefined,
-          largo: medidasLargo ? parseFloat(medidasLargo) : undefined
-        },
-        embalaje: {
-          alto: embalajeAlto ? parseFloat(embalajeAlto) : undefined,
-          ancho: embalajeAncho ? parseFloat(embalajeAncho) : undefined,
-          largo: embalajeLargo ? parseFloat(embalajeLargo) : undefined
-        },
+        medidasAlto: medidasAlto ? parseFloat(medidasAlto) : undefined,
+        medidasAncho: medidasAncho ? parseFloat(medidasAncho) : undefined,
+        medidasLargo: medidasLargo ? parseFloat(medidasLargo) : undefined,
+        embalajeAlto: embalajeAlto ? parseFloat(embalajeAlto) : undefined,
+        embalajeAncho: embalajeAncho ? parseFloat(embalajeAncho) : undefined,
+        embalajeLargo: embalajeLargo ? parseFloat(embalajeLargo) : undefined,
         peso: peso ? parseFloat(peso) : undefined,
         marca: marca.trim(),
         potencia: potencia.trim(),

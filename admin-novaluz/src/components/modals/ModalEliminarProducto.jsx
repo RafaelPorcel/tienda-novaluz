@@ -34,7 +34,7 @@ function ModalEliminarProducto({ producto, isOpen, onClose, onConfirm }) {
 
     try {
       // Llamar a la función de confirmación que viene del componente padre
-      await onConfirm(producto._id);
+      await onConfirm(producto.id);
       setMensaje("✅ Producto eliminado correctamente");
       
       // Cerrar el modal después de un breve delay
