@@ -1,0 +1,379 @@
+/* ===== PÁGINA SOBRE NOSOTROS ===== */
+
+/* Header de sobre nosotros */
+.sobre-nosotros-header {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  padding: 3rem 0;
+  text-align: center;
+}
+
+.sobre-nosotros-header .header-content h1 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.sobre-nosotros-header .header-content p {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 2rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Historia de la empresa */
+.historia-empresa {
+  padding: 4rem 0;
+  background-color: white;
+}
+
+.historia-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.historia-text h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.historia-text p {
+  font-size: 1.1rem;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+/* Timeline de momentos */
+.historia-momentos {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.momento {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  position: relative;
+}
+
+.momento:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 2.5rem;
+  top: 3rem;
+  bottom: -2rem;
+  width: 2px;
+  background-color: var(--primary-color);
+}
+
+.momento-fecha {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  min-width: 80px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.momento-content h3 {
+  font-size: 1.3rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.momento-content p {
+  color: #666;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Estadísticas */
+.historia-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 2rem;
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  transition: all 0.3s;
+}
+
+.stat-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(192, 45, 45, 0.15);
+}
+
+.stat-number {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+/* Servicios y equipo */
+.servicios-equipo {
+  padding: 4rem 0;
+  background-color: #f8f9fa;
+}
+
+.servicios-section,
+.equipo-section,
+.valores-section {
+  margin-bottom: 4rem;
+}
+
+.servicios-section:last-child,
+.equipo-section:last-child,
+.valores-section:last-child {
+  margin-bottom: 0;
+}
+
+.servicios-section h2,
+.equipo-section h2,
+.valores-section h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.servicios-section p,
+.equipo-section p {
+  font-size: 1.1rem;
+  color: #666;
+  text-align: center;
+  margin-bottom: 3rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Grid de servicios */
+.servicios-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.servicio-card {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  transition: all 0.3s;
+  border: 2px solid transparent;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.servicio-card:hover {
+  border-color: var(--primary-color);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(192, 45, 45, 0.15);
+}
+
+.servicio-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.servicio-card h3 {
+  font-size: 1.3rem;
+  color: #333;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.servicio-card p {
+  color: #666;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Grid de equipo */
+.equipo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.miembro-card {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  transition: all 0.3s;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.miembro-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(192, 45, 45, 0.15);
+}
+
+.miembro-avatar {
+  width: 80px;
+  height: 80px;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+}
+
+.avatar-icon {
+  font-size: 2rem;
+  color: white;
+}
+
+.miembro-card h3 {
+  font-size: 1.3rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.miembro-cargo {
+  color: var(--primary-color);
+  font-weight: 600;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.miembro-descripcion {
+  color: #666;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Grid de valores */
+.valores-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.valor-item {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  transition: all 0.3s;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.valor-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(192, 45, 45, 0.15);
+}
+
+.valor-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.valor-item h3 {
+  font-size: 1.3rem;
+  color: #333;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.valor-item p {
+  color: #666;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .historia-content {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  
+  .historia-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .sobre-nosotros-header {
+    padding: 2rem 0;
+  }
+  
+  .sobre-nosotros-header .header-content h1 {
+    font-size: 2rem;
+  }
+  
+  .historia-empresa,
+  .servicios-equipo {
+    padding: 2rem 0;
+  }
+  
+  .historia-stats {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .servicios-grid,
+  .equipo-grid,
+  .valores-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .momento {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .momento:not(:last-child)::after {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .sobre-nosotros-header .header-content h1 {
+    font-size: 1.8rem;
+  }
+  
+  .servicio-card,
+  .miembro-card,
+  .valor-item {
+    padding: 1.5rem;
+  }
+  
+  .momento-fecha {
+    min-width: 60px;
+    font-size: 0.8rem;
+  }
+} 

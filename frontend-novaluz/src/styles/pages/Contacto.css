@@ -1,0 +1,345 @@
+/* ===== PÁGINA DE CONTACTO ===== */
+
+/* Header de contacto */
+.contacto-header {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  padding: 3rem 0;
+  text-align: center;
+}
+
+.contacto-header .header-content h1 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.contacto-header .header-content p {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 2rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Información de contacto */
+.info-contacto {
+  padding: 4rem 0;
+  background-color: white;
+}
+
+.info-contacto h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.info-contacto > p {
+  font-size: 1.1rem;
+  color: #666;
+  text-align: center;
+  margin-bottom: 3rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.datos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.dato-card {
+  display: flex;
+  gap: 1rem;
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  transition: all 0.3s;
+  border: 2px solid transparent;
+}
+
+.dato-card:hover {
+  border-color: rgb(192, 45, 45);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.dato-icon {
+  font-size: 2rem;
+  color: rgb(192, 45, 45);
+  flex-shrink: 0;
+}
+
+.dato-content h3 {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.dato-principal {
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 0.3rem;
+  font-weight: 500;
+}
+
+.dato-subtitle {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 0;
+}
+
+/* Mapa section */
+.mapa-section {
+  margin-top: 3rem;
+}
+
+.mapa-section h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.mapa-placeholder {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 15px;
+  padding: 3rem;
+  text-align: center;
+  border: 2px dashed #ddd;
+  transition: all 0.3s;
+}
+
+.mapa-placeholder:hover {
+  border-color: rgb(192, 45, 45);
+  background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+}
+
+.mapa-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.mapa-icon {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.mapa-content p {
+  margin: 0;
+  color: #666;
+}
+
+.mapa-content p:first-of-type {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Formulario de contacto */
+.formulario-contacto {
+  padding: 4rem 0;
+  background-color: #f8f9fa;
+}
+
+.formulario-contacto h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.formulario-contacto > p {
+  font-size: 1.1rem;
+  color: #666;
+  text-align: center;
+  margin-bottom: 3rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.contacto-form {
+  background-color: white;
+  padding: 3rem;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 0.8rem;
+  border: 2px solid #eee;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: rgb(192, 45, 45);
+  box-shadow: 0 0 0 3px rgba(192, 45, 45, 0.1);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* Checkbox styles */
+.form-options {
+  margin: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: rgb(192, 45, 45);
+}
+
+.btn-enviar {
+  background-color: rgb(192, 45, 45);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.btn-enviar:hover:not(:disabled) {
+  background-color: rgb(165, 38, 38);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(192, 45, 45, 0.3);
+}
+
+.btn-enviar:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.enviar-icon {
+  font-size: 1.1rem;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .contacto-header {
+    padding: 2rem 0;
+  }
+
+  .contacto-header .header-content h1 {
+    font-size: 2rem;
+  }
+
+  .datos-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .contacto-form {
+    padding: 2rem;
+  }
+
+  .info-contacto,
+  .formulario-contacto {
+    padding: 3rem 0;
+  }
+
+  .mapa-placeholder {
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .contacto-header .header-content h1 {
+    font-size: 1.8rem;
+  }
+
+  .dato-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .contacto-form {
+    padding: 1.5rem;
+  }
+
+  .mapa-placeholder {
+    padding: 1.5rem;
+  }
+} 
