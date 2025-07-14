@@ -10,8 +10,7 @@ function Footer() {
             <img src="/logo_novaluz.png" alt="Nova Luz" />
           </div>
           <p className="brand-description">
-            Tu proveedor de confianza para iluminación LED, ventilación y 
-            soluciones eléctricas de alta calidad.
+            MÁS DE 20 AÑOS ILUMINANDO TU HOGAR Y TU NEGOCIO. ESPECIALÍSTAS EN ASESORAMIENTO PERSONALIZADO. VISÍTANOS
           </p>
           <div className="social-links">
             <a href="#" className="social-link" aria-label="Facebook">
@@ -32,10 +31,9 @@ function Footer() {
         <div className="footer-section">
           <h4>Productos</h4>
           <ul>
-            <li><Link to="/tienda">Iluminación LED</Link></li>
+            <li><Link to="/tienda">Iluminación</Link></li>
             <li><Link to="/tienda">Ventiladores</Link></li>
             <li><Link to="/tienda">Bombillas</Link></li>
-            <li><Link to="/tienda">Accesorios</Link></li>
           </ul>
         </div>
 
@@ -44,15 +42,12 @@ function Footer() {
           <ul>
             <li><Link to="/sobre-nosotros">Sobre Nosotros</Link></li>
             <li><Link to="/contacto">Contacto</Link></li>
-            <li><a href="#">Blog</a></li>
-            <li><a href="#">Trabaja con Nosotros</a></li>
           </ul>
         </div>
 
         <div className="footer-section">
           <h4>Atención al Cliente</h4>
           <ul>
-            <li><a href="#">Centro de Ayuda</a></li>
             <li><a href="#">Envíos y Devoluciones</a></li>
             <li><a href="#">Garantías</a></li>
             <li><a href="#">Soporte Técnico</a></li>
@@ -63,22 +58,26 @@ function Footer() {
           <h4>Contacto</h4>
           <div className="footer-contact">
             <div className="contact-item">
-              <span className="contact-icon">
-                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-              </span>
-              <span>Calle Principal 123, Madrid</span>
+              <span className="contact-icon">📍</span>
+              <a href="https://www.google.com/maps/search/?api=1&query=Avda.+Villanueva+de+Córdoba,+43,+Pozoblanco" target="_blank" rel="noopener noreferrer">
+                Avda. Villanueva de Córdoba, 43 - Pozoblanco
+              </a>
             </div>
             <div className="contact-item">
-              <span className="contact-icon">
-                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1v3.5a1 1 0 0 1-1 1C7.61 22 2 16.39 2 9.5a1 1 0 0 1 1-1H6.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.24 1.01l-2.2 2.2z"/></svg>
-              </span>
-              <span>+34 91 123 45 67</span>
+              <span className="contact-icon">📞</span>
+              <a href="tel:957130334">957 130 334</a>
             </div>
             <div className="contact-item">
-              <span className="contact-icon">
-                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 2l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg>
-              </span>
-              <span>info@novaluz.com</span>
+              <span className="contact-icon">💬</span>
+              <a href="https://wa.me/34623450198" target="_blank" rel="noopener noreferrer">WhatsApp: 623 450 198</a>
+            </div>
+            <div className="contact-item">
+              <span className="contact-icon">✉️</span>
+              <a href="mailto:iluminacion_novaluz@hotmail.com">iluminacion_novaluz@hotmail.com</a>
+            </div>
+            <div className="contact-item">
+              <span className="contact-icon">🕒</span>
+              <span>Lunes-Viernes: 10:00/13:45 - 17:15/20:30<br/>Sábado: 10:00-13:45</span>
             </div>
           </div>
         </div>
@@ -86,7 +85,7 @@ function Footer() {
 
       <div className="footer-bottom">
         <div className="footer-bottom-content">
-          <p>&copy; 2024 Nova Luz. Todos los derechos reservados.</p>
+          <p>&copy; 2023 novaluz.com</p>
           <div className="footer-legal">
             <a href="#">Política de Privacidad</a>
             <a href="#">Términos y Condiciones</a>

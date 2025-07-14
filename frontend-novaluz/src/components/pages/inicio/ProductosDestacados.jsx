@@ -1,30 +1,21 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 function ProductosDestacados() {
-  const productos = [
-    {
-      id: 1,
-      nombre: 'Bombilla LED 9W',
-      precio: 12.99,
-      imagen: '/placeholder.jpg',
-      categoria: 'Iluminación'
-    },
-    {
-      id: 2,
-      nombre: 'Ventilador de Techo',
-      precio: 89.99,
-      imagen: '/placeholder.jpg',
-      categoria: 'Ventilación'
-    },
-    {
-      id: 3,
-      nombre: 'Lámpara de Mesa LED',
-      precio: 45.99,
-      imagen: '/placeholder.jpg',
-      categoria: 'Iluminación'
-    }
-  ];
+  const [productos, setProductos] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('http://localhost:5000/api/productos')
+      .then(res => res.json())
+      .then(data => {
+        setProductos(data);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
+
+  if (loading) return null;
 
   return (
     <section className="productos-destacados">
@@ -35,10 +26,10 @@ function ProductosDestacados() {
         </div>
         
         <div className="productos-grid">
-          {productos.map(producto => (
+          {productos.slice(0, 3).map(producto => (
             <div key={producto.id} className="producto-card">
               <div className="producto-imagen">
-                <img src={producto.imagen} alt={producto.nombre} />
+                <img src={producto.imagen || '/placeholder.jpg'} alt={producto.nombre} />
               </div>
               <div className="producto-info">
                 <h3>{producto.nombre}</h3>

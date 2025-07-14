@@ -6,29 +6,36 @@ function InfoContacto() {
       id: 1,
       icono: '📍',
       titulo: 'Dirección',
-      contenido: 'Calle Principal 123, 28001 Madrid, España',
-      descripcion: 'Nuestra tienda física está ubicada en el centro de Madrid'
+      contenido: 'Avda. Villanueva de Córdoba, 43 - Pozoblanco',
+      descripcion: 'Nuestra tienda física está en Pozoblanco, Córdoba.'
     },
     {
       id: 2,
       icono: '📞',
       titulo: 'Teléfono',
-      contenido: '+34 91 123 45 67',
-      descripcion: 'Llámanos de lunes a viernes de 9:00 a 18:00'
+      contenido: '957 130 334',
+      descripcion: 'Llámanos para cualquier consulta o pedido.'
     },
     {
       id: 3,
-      icono: '✉️',
-      titulo: 'Email',
-      contenido: 'info@novaluz.com',
-      descripcion: 'Responderemos en menos de 24 horas'
+      icono: '💬',
+      titulo: 'WhatsApp',
+      contenido: '623 450 198',
+      descripcion: 'Atención rápida por WhatsApp.'
     },
     {
       id: 4,
+      icono: '✉️',
+      titulo: 'Email',
+      contenido: 'iluminacion_novaluz@hotmail.com',
+      descripcion: 'Responderemos en menos de 24 horas.'
+    },
+    {
+      id: 5,
       icono: '🕒',
       titulo: 'Horario',
-      contenido: 'Lun-Vie: 9:00-18:00',
-      descripcion: 'Sábados: 10:00-14:00 (Solo tienda física)'
+      contenido: 'Lunes-Viernes: 10:00/13:45 - 17:15/20:30\nSábado: 10:00-13:45',
+      descripcion: 'Visítanos en nuestro horario comercial.'
     }
   ];
 
@@ -56,7 +63,7 @@ function InfoContacto() {
           <div className="mapa-content">
             <span className="mapa-icon">🗺️</span>
             <p>Mapa interactivo</p>
-            <p>Madrid, España</p>
+            <p>Pozoblanco, Córdoba</p>
           </div>
         </div>
       </div>

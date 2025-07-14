@@ -1,93 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import ProductoCard from './ProductoCard';
 
-function ListaProductos({ filtros }) {
-  const [productos, setProductos] = useState([]);
+function ListaProductos({ filtros, productos = [], loading }) {
   const [productosFiltrados, setProductosFiltrados] = useState([]);
 
-  // Datos de ejemplo
-  useEffect(() => {
-    const productosEjemplo = [
-      {
-        id: 1,
-        nombre: 'Bombilla LED 9W E27',
-        precio: 12.99,
-        imagen: '/placeholder.jpg',
-        categoria: 'Iluminación LED',
-        stock: 50,
-        destacado: true
-      },
-      {
-        id: 2,
-        nombre: 'Ventilador de Techo Moderno',
-        precio: 89.99,
-        imagen: '/placeholder.jpg',
-        categoria: 'Ventilación',
-        stock: 15,
-        destacado: false
-      },
-      {
-        id: 3,
-        nombre: 'Lámpara de Mesa LED',
-        precio: 45.99,
-        imagen: '/placeholder.jpg',
-        categoria: 'Iluminación LED',
-        stock: 25,
-        destacado: true
-      },
-      {
-        id: 4,
-        nombre: 'Cable Eléctrico 2.5mm',
-        precio: 8.99,
-        imagen: '/placeholder.jpg',
-        categoria: 'Accesorios',
-        stock: 100,
-        destacado: false
-      },
-      {
-        id: 5,
-        nombre: 'Interruptor Simple',
-        precio: 5.99,
-        imagen: '/placeholder.jpg',
-        categoria: 'Accesorios',
-        stock: 0,
-        destacado: false
-      },
-      {
-        id: 6,
-        nombre: 'Tubo LED 18W',
-        precio: 22.99,
-        imagen: '/placeholder.jpg',
-        categoria: 'Iluminación LED',
-        stock: 3,
-        destacado: false
-      }
-    ];
-    setProductos(productosEjemplo);
-  }, []);
-
-  // Filtrar productos
   useEffect(() => {
     let filtrados = [...productos];
 
-    // Filtro por categoría
     if (filtros.categoria) {
-      filtrados = filtrados.filter(p => 
-        p.categoria.toLowerCase().includes(filtros.categoria.toLowerCase())
+      filtrados = filtrados.filter(p =>
+        p.categoria === filtros.categoria
       );
     }
-
-    // Filtro por precio mínimo
+    if (filtros.subcategoria) {
+      filtrados = filtrados.filter(p =>
+        p.subcategoria === filtros.subcategoria
+      );
+    }
     if (filtros.precioMin) {
       filtrados = filtrados.filter(p => p.precio >= parseFloat(filtros.precioMin));
     }
-
-    // Filtro por precio máximo
     if (filtros.precioMax) {
       filtrados = filtrados.filter(p => p.precio <= parseFloat(filtros.precioMax));
     }
-
-    // Ordenar productos
     switch (filtros.ordenar) {
       case 'precio-asc':
         filtrados.sort((a, b) => a.precio - b.precio);
@@ -96,14 +31,17 @@ function ListaProductos({ filtros }) {
         filtrados.sort((a, b) => b.precio - a.precio);
         break;
       case 'popularidad':
-        filtrados.sort((a, b) => b.destacado - a.destacado);
+        filtrados.sort((a, b) => (b.destacado ? 1 : 0) - (a.destacado ? 1 : 0));
         break;
       default:
         filtrados.sort((a, b) => a.nombre.localeCompare(b.nombre));
     }
-
     setProductosFiltrados(filtrados);
   }, [productos, filtros]);
+
+  if (loading) {
+    return <p>Cargando productos...</p>;
+  }
 
   if (productosFiltrados.length === 0) {
     return (

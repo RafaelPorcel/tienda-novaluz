@@ -1,24 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-function FiltrosProductos({ onFiltroChange }) {
-  const [filtros, setFiltros] = useState({
+function FiltrosProductos({ onFiltroChange, categorias = [], subcategorias = [], loading, filtros }) {
+  const [filtrosLocal, setFiltrosLocal] = useState({
     categoria: '',
+    subcategoria: '',
     precioMin: '',
     precioMax: '',
     ordenar: 'nombre'
   });
 
-  const categorias = [
+  useEffect(() => {
+    setFiltrosLocal(filtros);
+  }, [filtros]);
+
+  const categoriasOptions = [
     { id: '', nombre: 'Todas las categorías' },
-    { id: 'iluminacion', nombre: 'Iluminación LED' },
-    { id: 'ventilacion', nombre: 'Ventilación' },
-    { id: 'accesorios', nombre: 'Accesorios' }
+    ...categorias.map(cat => ({ id: cat, nombre: cat }))
+  ];
+
+  const subcategoriasOptions = [
+    { id: '', nombre: 'Todas las subcategorías' },
+    ...subcategorias.map(sub => ({ id: sub, nombre: sub }))
   ];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    const nuevosFiltros = { ...filtros, [name]: value };
-    setFiltros(nuevosFiltros);
+    let nuevosFiltros = { ...filtrosLocal, [name]: value };
+    // Si cambia la categoría, reiniciar subcategoría
+    if (name === 'categoria') {
+      nuevosFiltros.subcategoria = '';
+    }
+    setFiltrosLocal(nuevosFiltros);
     onFiltroChange(nuevosFiltros);
   };
 
@@ -31,11 +43,12 @@ function FiltrosProductos({ onFiltroChange }) {
           onClick={() => {
             const filtrosLimpios = {
               categoria: '',
+              subcategoria: '',
               precioMin: '',
               precioMax: '',
               ordenar: 'nombre'
             };
-            setFiltros(filtrosLimpios);
+            setFiltrosLocal(filtrosLimpios);
             onFiltroChange(filtrosLimpios);
           }}
         >
@@ -48,10 +61,11 @@ function FiltrosProductos({ onFiltroChange }) {
           <label>Categoría:</label>
           <select 
             name="categoria" 
-            value={filtros.categoria}
+            value={filtrosLocal.categoria}
             onChange={handleChange}
+            disabled={loading}
           >
-            {categorias.map(cat => (
+            {categoriasOptions.map(cat => (
               <option key={cat.id} value={cat.id}>
                 {cat.nombre}
               </option>
@@ -59,12 +73,30 @@ function FiltrosProductos({ onFiltroChange }) {
           </select>
         </div>
 
+        {filtrosLocal.categoria && (
+          <div className="filtro-grupo">
+            <label>Subcategoría:</label>
+            <select
+              name="subcategoria"
+              value={filtrosLocal.subcategoria}
+              onChange={handleChange}
+              disabled={loading || subcategorias.length === 0}
+            >
+              {subcategoriasOptions.map(sub => (
+                <option key={sub.id} value={sub.id}>
+                  {sub.nombre}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
+
         <div className="filtro-grupo">
           <label>Precio mínimo:</label>
           <input
             type="number"
             name="precioMin"
-            value={filtros.precioMin}
+            value={filtrosLocal.precioMin}
             onChange={handleChange}
             placeholder="€0"
             min="0"
@@ -76,7 +108,7 @@ function FiltrosProductos({ onFiltroChange }) {
           <input
             type="number"
             name="precioMax"
-            value={filtros.precioMax}
+            value={filtrosLocal.precioMax}
             onChange={handleChange}
             placeholder="€1000"
             min="0"
@@ -87,7 +119,7 @@ function FiltrosProductos({ onFiltroChange }) {
           <label>Ordenar por:</label>
           <select 
             name="ordenar" 
-            value={filtros.ordenar}
+            value={filtrosLocal.ordenar}
             onChange={handleChange}
           >
             <option value="nombre">Nombre A-Z</option>
