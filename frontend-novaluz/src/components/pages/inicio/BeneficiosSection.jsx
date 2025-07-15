@@ -4,27 +4,27 @@ function BeneficiosSection() {
   const beneficios = [
     {
       id: 1,
-      icono: '🚚',
-      titulo: 'Envío Gratuito',
-      descripcion: 'En pedidos superiores a €50'
+      icono: '🏠',
+      titulo: 'Instalación en Nueva Vivienda',
+      descripcion: 'Servicios completos de instalación eléctrica e iluminación'
     },
     {
       id: 2,
-      icono: '🔄',
-      titulo: 'Devolución Gratuita',
-      descripcion: '30 días para cambiar de opinión'
+      icono: '🔧',
+      titulo: 'Reforma y Mantenimiento',
+      descripcion: 'Iluminación, climatización, antenas, redes y energía solar'
     },
     {
       id: 3,
-      icono: '🛡️',
-      titulo: 'Garantía de 2 Años',
-      descripcion: 'En todos nuestros productos'
+      icono: '💡',
+      titulo: 'Asesoramiento Personalizado',
+      descripcion: 'Más de 20 años de experiencia en el sector'
     },
     {
       id: 4,
-      icono: '💬',
-      titulo: 'Soporte 24/7',
-      descripcion: 'Atención al cliente especializada'
+      icono: '🛒',
+      titulo: 'Tienda Online',
+      descripcion: 'Compra desde casa con los mejores productos del mercado'
     }
   ];
 
@@ -33,7 +33,7 @@ function BeneficiosSection() {
       <div className="container">
         <div className="section-header">
           <h2>¿Por qué elegir Nova Luz?</h2>
-          <p>Descubre las ventajas de comprar con nosotros</p>
+          <p>Somos especialistas en asesoramiento personalizado. ¡Visítanos!</p>
         </div>
         
         <div className="beneficios-grid">

@@ -5,24 +5,24 @@ function CategoriasSection() {
   const categorias = [
     {
       id: 1,
-      nombre: 'Iluminación LED',
+      nombre: 'Iluminación',
       icono: '💡',
-      descripcion: 'Bombillas y lámparas LED de alta eficiencia',
+      descripcion: 'Últimos productos del mercado en iluminación LED y bajo consumo',
       enlace: '/tienda?categoria=iluminacion'
     },
     {
       id: 2,
-      nombre: 'Ventilación',
+      nombre: 'Climatización',
       icono: '🌪️',
-      descripcion: 'Ventiladores de techo y pared',
-      enlace: '/tienda?categoria=ventilacion'
+      descripcion: 'Ventiladores y sistemas de climatización de bajo consumo',
+      enlace: '/tienda?categoria=climatizacion'
     },
     {
       id: 3,
-      nombre: 'Accesorios',
+      nombre: 'Herramienta',
       icono: '🔧',
-      descripcion: 'Cables, interruptores y más',
-      enlace: '/tienda?categoria=accesorios'
+      descripcion: 'Herramientas profesionales para instalaciones y mantenimiento',
+      enlace: '/tienda?categoria=herramienta'
     }
   ];
 
@@ -30,8 +30,8 @@ function CategoriasSection() {
     <section className="categorias-section">
       <div className="container">
         <div className="section-header">
-          <h2>Nuestras Categorías</h2>
-          <p>Encuentra todo lo que necesitas para tu proyecto</p>
+          <h2>Nuestros Productos</h2>
+          <p>Rendimiento y eficiencia comprometidos con nuestros clientes y el medio ambiente</p>
         </div>
         
         <div className="categorias-grid">

@@ -1,9 +1,22 @@
 /* ===== PÁGINA DE INICIO - ESTILO COMERCIAL ===== */
 
-/* Hero Banner */
+/* Hero Banner - Diseño Profesional */
 .hero-banner {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  padding: 4rem 0;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+  padding: 6rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-banner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(192,45,45,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+  opacity: 0.3;
 }
 
 .hero-content {
@@ -12,71 +25,88 @@
   padding: 0 var(--spacing-4);
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 3rem;
+  gap: 4rem;
   align-items: center;
+  position: relative;
+  z-index: 2;
 }
 
 .hero-text h1 {
-  font-size: 3.5rem;
-  font-weight: 700;
-  color: var(--primary-color);
-  margin-bottom: 1rem;
-  letter-spacing: 2px;
+  font-size: 3.2rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 1.5rem;
+  letter-spacing: 1px;
+  line-height: 1.2;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
 .hero-text h2 {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: 600;
-  color: #333;
-  margin-bottom: 1rem;
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
 
 .hero-text p {
-  font-size: 1.1rem;
-  color: #666;
-  margin-bottom: 2rem;
-  line-height: 1.6;
+  font-size: 1.2rem;
+  color: #e0e0e0;
+  margin-bottom: 2.5rem;
+  line-height: 1.7;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
 
 .hero-actions {
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
   flex-wrap: wrap;
 }
 
 .hero-actions .btn-primary {
-  background-color: var(--primary-color);
+  background: linear-gradient(135deg, var(--primary-color) 0%, #c82333 100%);
   color: white;
-  padding: 0.8rem 2rem;
-  border-radius: 5px;
-  font-weight: 600;
+  padding: 1rem 2.5rem;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1.1rem;
   text-decoration: none;
-  transition: all 0.3s;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(192, 45, 45, 0.4);
+  border: none;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .hero-actions .btn-primary:hover {
-  background-color: var(--primary-dark);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(192, 45, 45, 0.3);
+  background: linear-gradient(135deg, #c82333 0%, var(--primary-color) 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(192, 45, 45, 0.6);
 }
 
 .hero-actions .btn-secondary {
   background-color: transparent;
-  color: var(--primary-color);
-  border: 2px solid var(--primary-color);
-  padding: 0.8rem 2rem;
-  border-radius: 5px;
-  font-weight: 600;
+  color: #ffffff;
+  border: 3px solid var(--primary-color);
+  padding: 1rem 2.5rem;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1.1rem;
   text-decoration: none;
-  transition: all 0.3s;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px rgba(192, 45, 45, 0.2);
 }
 
 .hero-actions .btn-secondary:hover {
   background-color: var(--primary-color);
   color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(192, 45, 45, 0.4);
 }
 
-/* Oferta especial */
+/* Oferta especial - Diseño Mejorado */
 .hero-offer {
   display: flex;
   justify-content: center;
@@ -84,48 +114,72 @@
 }
 
 .offer-card {
-  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
-  color: white;
-  padding: 2rem;
-  border-radius: 10px;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  color: #333;
+  padding: 2.5rem;
+  border-radius: 15px;
   text-align: center;
-  box-shadow: 0 8px 25px rgba(192, 45, 45, 0.3);
-  transform: rotate(2deg);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  transform: rotate(1deg);
+  border: 3px solid var(--primary-color);
+  position: relative;
+  overflow: hidden;
+}
+
+.offer-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-color) 0%, #c82333 100%);
 }
 
 .offer-card h3 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .offer-card p {
-  font-size: 1rem;
-  margin-bottom: 1rem;
-  opacity: 0.9;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  color: #555;
+  line-height: 1.6;
 }
 
 .offer-price {
   display: block;
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-bottom: 2rem;
+  color: var(--primary-color);
+  text-transform: uppercase;
 }
 
 .btn-offer {
-  background-color: white;
-  color: var(--primary-color);
-  padding: 0.8rem 1.5rem;
-  border-radius: 5px;
-  font-weight: 600;
+  background: linear-gradient(135deg, var(--primary-color) 0%, #c82333 100%);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1rem;
   text-decoration: none;
-  transition: all 0.3s;
+  transition: all 0.3s ease;
   display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px rgba(192, 45, 45, 0.4);
 }
 
 .btn-offer:hover {
-  background-color: #f8f9fa;
+  background: linear-gradient(135deg, #c82333 0%, var(--primary-color) 100%);
   transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(192, 45, 45, 0.6);
 }
 
 /* Categorías */
