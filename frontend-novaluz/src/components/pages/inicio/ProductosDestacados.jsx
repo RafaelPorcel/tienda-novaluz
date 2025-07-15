@@ -6,7 +6,7 @@ function ProductosDestacados() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/productos')
+    fetch(`${import.meta.env.VITE_API_URL}/api/productos`)
       .then(res => res.json())
       .then(data => {
         setProductos(data);
