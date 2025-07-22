@@ -1,5 +1,5 @@
 // Funciones para conectar con el backend
-export const API_URL = 'http://localhost:5000/api';
+export const API_URL = 'https://tienda-novaluz-production.up.railway.app';
 
 // Obtener todos los productos
 export const getProductos = async () => {
