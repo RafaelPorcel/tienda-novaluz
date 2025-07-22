@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import FiltrosProductos from '../components/pages/tienda/FiltrosProductos';
 import ListaProductos from '../components/pages/tienda/ListaProductos';
+import { getProductos } from '../utils/api';
 
 function Tienda() {
   const [filtros, setFiltros] = useState({
@@ -16,8 +17,7 @@ function Tienda() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/api/productos`)
-      .then(res => res.json())
+    getProductos()
       .then(data => {
         setProductos(data);
         // Extraer categorías únicas

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { getProductos } from '../../../utils/api';
 
 function ProductosDestacados() {
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/api/productos`)
-      .then(res => res.json())
+    getProductos()
       .then(data => {
         setProductos(data);
         setLoading(false);
