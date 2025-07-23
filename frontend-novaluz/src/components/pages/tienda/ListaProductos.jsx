@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import ProductoCard from './ProductoCard';
+import ModalProducto from '../../modals/ModalProducto';
 
 function ListaProductos({ filtros, productos = [], loading }) {
   const [productosFiltrados, setProductosFiltrados] = useState([]);
+  const [modalAbierta, setModalAbierta] = useState(false);
+  const [productoSeleccionado, setProductoSeleccionado] = useState(null);
 
   useEffect(() => {
     let filtrados = [...productos];
@@ -39,6 +42,16 @@ function ListaProductos({ filtros, productos = [], loading }) {
     setProductosFiltrados(filtrados);
   }, [productos, filtros]);
 
+  const handleVerDetalles = (producto) => {
+    setProductoSeleccionado(producto);
+    setModalAbierta(true);
+  };
+
+  const handleCerrarModal = () => {
+    setModalAbierta(false);
+    setProductoSeleccionado(null);
+  };
+
   if (loading) {
     return <p>Cargando productos...</p>;
   }
@@ -59,10 +72,10 @@ function ListaProductos({ filtros, productos = [], loading }) {
     <div className="lista-productos">
       <div className="productos-grid">
         {productosFiltrados.map(producto => (
-          <ProductoCard key={producto.id} producto={producto} />
+          <ProductoCard key={producto.id} producto={producto} onVerDetalles={handleVerDetalles} />
         ))}
       </div>
-      
+      <ModalProducto producto={productoSeleccionado} isOpen={modalAbierta} onClose={handleCerrarModal} />
       <div className="productos-info">
         <p>Mostrando {productosFiltrados.length} de {productos.length} productos</p>
       </div>

@@ -1,0 +1,119 @@
+.modal-producto-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.modal-producto {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  max-width: 540px;
+  width: 97vw;
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  position: relative;
+  animation: modalFadeIn 0.25s;
+  display: flex;
+  flex-direction: column;
+}
+
+@keyframes modalFadeIn {
+  from { transform: translateY(40px) scale(0.98); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+.modal-producto-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: #fff;
+  border: none;
+  font-size: 2rem;
+  color: rgb(192,45,45);
+  cursor: pointer;
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Sin hover especial */
+}
+
+.modal-producto-content {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+}
+
+.modal-producto-img {
+  flex: 0 0 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-producto-img img {
+  max-width: 150px;
+  max-height: 200px;
+  border-radius: 12px;
+  border: 2px solid rgb(192,45,45,0.12);
+  background: #fafafa;
+  transition: box-shadow 0.2s;
+}
+
+.modal-producto-img-grande img {
+  max-width: 220px;
+  max-height: 260px;
+}
+
+.modal-producto-info {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.modal-producto-nombre {
+  color: rgb(192,45,45);
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+.modal-producto-descripcion {
+  color: #222;
+  font-size: 1rem;
+  margin-bottom: 0.7rem;
+}
+.modal-producto-datos {
+  font-size: 0.98rem;
+  color: #444;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+@media (max-width: 600px) {
+  .modal-producto {
+    max-width: 99vw;
+    padding: 1.2rem 0.5rem 1.2rem 0.5rem;
+  }
+  .modal-producto-content {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .modal-producto-img,
+  .modal-producto-img-grande {
+    justify-content: center;
+    flex: 0 0 auto;
+    width: 100%;
+  }
+  .modal-producto-img img,
+  .modal-producto-img-grande img {
+    max-width: 90vw;
+    max-height: 220px;
+  }
+} 

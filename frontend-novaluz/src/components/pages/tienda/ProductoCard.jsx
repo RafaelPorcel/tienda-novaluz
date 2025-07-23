@@ -1,6 +1,6 @@
 import React from 'react';
 
-function ProductoCard({ producto }) {
+function ProductoCard({ producto, onVerDetalles }) {
   const { id, nombre, precio, imagen, categoria, stock, destacado } = producto;
 
   const getStockBadge = () => {
@@ -30,7 +30,7 @@ function ProductoCard({ producto }) {
         <div className="producto-precio">€{precio.toFixed(2)}</div>
         
         <div className="producto-acciones">
-          <button className="btn-ver-producto">
+          <button className="btn-ver-producto" onClick={() => onVerDetalles(producto)}>
             Ver Detalles
           </button>
           <button 

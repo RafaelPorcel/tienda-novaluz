@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { getProductos } from '../../../utils/api';
+import ModalProducto from '../../modals/ModalProducto';
 
 function ProductosDestacados() {
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [modalAbierta, setModalAbierta] = useState(false);
+  const [productoSeleccionado, setProductoSeleccionado] = useState(null);
 
   useEffect(() => {
     getProductos()
@@ -14,6 +16,16 @@ function ProductosDestacados() {
       })
       .catch(() => setLoading(false));
   }, []);
+
+  const handleVerDetalles = (producto) => {
+    setProductoSeleccionado(producto);
+    setModalAbierta(true);
+  };
+
+  const handleCerrarModal = () => {
+    setModalAbierta(false);
+    setProductoSeleccionado(null);
+  };
 
   if (loading) return null;
 
@@ -35,18 +47,18 @@ function ProductosDestacados() {
                 <h3>{producto.nombre}</h3>
                 <p className="producto-categoria">{producto.categoria}</p>
                 <p className="producto-precio">€{producto.precio}</p>
-                <Link to="/tienda" className="btn-ver-producto">
-                  Ver Producto
-                </Link>
+                <button className="btn-ver-producto" onClick={() => handleVerDetalles(producto)}>
+                  Ver Detalles
+                </button>
               </div>
             </div>
           ))}
         </div>
-        
+        <ModalProducto producto={productoSeleccionado} isOpen={modalAbierta} onClose={handleCerrarModal} />
         <div className="section-footer">
-          <Link to="/tienda" className="btn-ver-todos">
+          <a href="/tienda" className="btn-ver-todos">
             Ver Todos los Productos
-          </Link>
+          </a>
         </div>
       </div>
     </section>
