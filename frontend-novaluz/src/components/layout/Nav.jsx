@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useCarrito } from '../../context/CarritoContext';
 
 function Nav() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [cartItems] = useState(3); // Simulación de items en carrito
+  const { carritoItems } = useCarrito();
+  const cartItems = carritoItems.reduce((total, item) => total + item.cantidad, 0);
+
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
