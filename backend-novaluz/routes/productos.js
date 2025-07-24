@@ -55,6 +55,8 @@ router.get('/', async (req, res) => {
     res.json(productos);
   } catch (err) {
     res.status(500).json({ message: err.message });
+  } finally {
+    await prisma.$disconnect();
   }
 });
 
@@ -96,6 +98,8 @@ router.post('/', async (req, res) => {
     }
   } catch (error) {
     res.status(400).json({ message: error.message });
+  } finally {
+    await prisma.$disconnect();
   }
 });
 
@@ -109,6 +113,8 @@ router.put('/:id', async (req, res) => {
     res.json(productoActualizado);
   } catch (err) {
     res.status(400).json({ message: err.message });
+  } finally {
+    await prisma.$disconnect();
   }
 });
 
@@ -121,6 +127,8 @@ router.delete('/:id', async (req, res) => {
     res.json({ message: 'Producto eliminado' });
   } catch (err) {
     res.status(500).json({ message: err.message });
+  } finally {
+    await prisma.$disconnect();
   }
 });
 
