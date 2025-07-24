@@ -18,7 +18,7 @@ function ServiciosEquipo() {
       id: 3,
       icono: '🔧',
       titulo: 'Instalación',
-      descripcion: 'Servicio de instalación profesional en Madrid y alrededores'
+      descripcion: 'Servicio de instalación profesional en el Valle de los Pedroches y alrededores'
     },
     {
       id: 4,
@@ -31,21 +31,21 @@ function ServiciosEquipo() {
   const equipo = [
     {
       id: 1,
-      nombre: 'María García',
+      nombre: 'La Paquita',
       cargo: 'Directora General',
-      descripcion: 'Más de 15 años de experiencia en el sector de la iluminación'
+      descripcion: 'Más de 30 años de experiencia en el sector de la electricidad'
     },
     {
       id: 2,
-      nombre: 'Carlos López',
-      cargo: 'Director Técnico',
-      descripcion: 'Especialista en instalaciones eléctricas y LED'
+      nombre: 'Jorge el Mellizo',
+      cargo: 'contable',
+      descripcion: 'Dueño y señor de Jorgilia, un mundo maravilloso'
     },
     {
       id: 3,
-      nombre: 'Ana Martínez',
-      cargo: 'Responsable de Ventas',
-      descripcion: 'Experta en asesoramiento y atención al cliente'
+      nombre: 'Ivano fistulas',
+      cargo: 'El más apaleao de todos',
+      descripcion: 'Trabaja dia y noche incluso los domingos, algunos bebe'
     }
   ];
 
