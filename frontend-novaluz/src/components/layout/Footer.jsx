@@ -10,7 +10,7 @@ function Footer() {
             <img src="/logo_novaluz.png" alt="Nova Luz" />
           </div>
           <p className="brand-description">
-            MÁS DE 20 AÑOS ILUMINANDO TU HOGAR Y TU NEGOCIO. ESPECIALÍSTAS EN ASESORAMIENTO PERSONALIZADO. VISÍTANOS
+            MÁS DE 25 AÑOS ILUMINANDO TU HOGAR Y TU NEGOCIO. ESPECIALÍSTAS EN ASESORAMIENTO PERSONALIZADO. VISÍTANOS
           </p>
           <div className="social-links">
             <a href="#" className="social-link" aria-label="Facebook">
@@ -73,11 +73,11 @@ function Footer() {
             </div>
             <div className="contact-item">
               <span className="contact-icon">✉️</span>
-              <a href="mailto:iluminacion_novaluz@hotmail.com">iluminacion_novaluz@hotmail.com</a>
+              <a href="mailto:novaluzsc@gmail.com">novaluzsc@gmail.com</a>
             </div>
             <div className="contact-item">
               <span className="contact-icon">🕒</span>
-              <span>Lunes-Viernes: 10:00/13:45 - 17:15/20:30<br/>Sábado: 10:00-13:45</span>
+              <span>Lunes-Viernes: 10:00/14:00 - 17:00/20:30<br/>Sábado: 10:00-14:00</span>
             </div>
           </div>
         </div>
@@ -85,7 +85,7 @@ function Footer() {
 
       <div className="footer-bottom">
         <div className="footer-bottom-content">
-          <p>&copy; 2023 novaluz.com</p>
+          <p>&copy; 2025 novaluz.com</p>
           <div className="footer-legal">
             <a href="#">Política de Privacidad</a>
             <a href="#">Términos y Condiciones</a>
