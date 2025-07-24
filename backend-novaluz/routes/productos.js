@@ -1,7 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
 
 // Mapas de códigos para categorías y subcategorías
 const codigosCategoria = {
@@ -50,6 +48,8 @@ const subcategoriasPorCategoria = {
 
 // Obtener todos los productos
 router.get('/', async (req, res) => {
+  const { PrismaClient } = require('@prisma/client');
+  const prisma = new PrismaClient();
   try {
     const productos = await prisma.producto.findMany();
     res.json(productos);
@@ -62,6 +62,8 @@ router.get('/', async (req, res) => {
 
 // Crear un producto nuevo
 router.post('/', async (req, res) => {
+  const { PrismaClient } = require('@prisma/client');
+  const prisma = new PrismaClient();
   try {
     if (Array.isArray(req.body)) {
       // Validar todas las categorías y subcategorías
@@ -105,6 +107,8 @@ router.post('/', async (req, res) => {
 
 // Editar un producto existente
 router.put('/:id', async (req, res) => {
+  const { PrismaClient } = require('@prisma/client');
+  const prisma = new PrismaClient();
   try {
     const productoActualizado = await prisma.producto.update({
       where: { id: req.params.id },
@@ -120,6 +124,8 @@ router.put('/:id', async (req, res) => {
 
 // Borrar un producto
 router.delete('/:id', async (req, res) => {
+  const { PrismaClient } = require('@prisma/client');
+  const prisma = new PrismaClient();
   try {
     await prisma.producto.delete({
       where: { id: req.params.id }
