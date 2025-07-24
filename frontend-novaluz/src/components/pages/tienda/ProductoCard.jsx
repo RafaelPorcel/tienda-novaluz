@@ -1,5 +1,7 @@
 import React from 'react';
 import { useCarrito } from '../../../context/CarritoContext';
+import { toast } from 'react-toastify';
+
 
 function ProductoCard({ producto, onVerDetalles }) {
   const { id, nombre, precio, imagen, categoria, stock, destacado } = producto;
@@ -38,7 +40,10 @@ function ProductoCard({ producto, onVerDetalles }) {
           <button 
             className="btn-añadir-carrito"
             disabled={stock === 0}
-            onClick={() => añadirAlCarrito(producto)} //Añadimos el producto al carrito
+            onClick={() => {
+              añadirAlCarrito(producto);//Añadimos el producto al carrito
+              toast.success(`${nombre} añadido al carrito`);
+            }} 
           >
             <span className="carrito-icon">🛒</span>
             Añadir
