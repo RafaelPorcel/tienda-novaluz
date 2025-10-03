@@ -2,7 +2,12 @@
 
 // Obtener todos los productos
 export const getProductos = async () => {
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/api/productos`);
+  const url = `${import.meta.env.VITE_API_URL}/api/productos`;
+  console.log('getProductos: Haciendo petición a:', url);
+  
+  const response = await fetch(url);
+  console.log('getProductos: Response status:', response.status);
+  
   if (!response.ok) throw new Error('Error al obtener productos');
   return response.json();
 };

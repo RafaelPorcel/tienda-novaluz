@@ -17,15 +17,22 @@ function Tienda() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    console.log('Tienda: Iniciando carga de productos...');
+    console.log('API URL:', import.meta.env.VITE_API_URL);
+    
     getProductos()
       .then(data => {
+        console.log('Productos recibidos:', data);
         setProductos(data);
         // Extraer categorías únicas
         const cats = Array.from(new Set(data.map(p => p.categoria).filter(Boolean)));
         setCategorias(cats);
         setLoading(false);
       })
-      .catch(() => setLoading(false));
+      .catch(error => {
+        console.error('Error al cargar productos:', error);
+        setLoading(false);
+      });
   }, []);
 
   useEffect(() => {
