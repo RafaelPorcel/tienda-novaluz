@@ -33,3 +33,22 @@ model Producto {
   potencia     String?
   otros        String? 
 }
+
+model Usuario {
+  id              String    @id
+  nombre          String
+  apellidos       String?
+  email           String    @unique
+  password        String
+  telefono        String?
+  direccion       String?
+  ciudad          String?
+  codigoPostal    String?
+  pais            String    @default("España")
+  rol             String    @default("cliente")
+  activo          Boolean   @default(true)
+  fechaRegistro   DateTime  @default(now())
+  ultimoAcceso    DateTime?
+
+  @@index([email])
+}
