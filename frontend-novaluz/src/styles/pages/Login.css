@@ -372,4 +372,29 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Errores de campo específicos */
+.field-error {
+  color: #c53030;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.field-error::before {
+  content: "⚠️";
+  font-size: 0.7rem;
+}
+
+.form-group input.error {
+  border-color: #c53030;
+  box-shadow: 0 0 0 2px rgba(197, 48, 48, 0.1);
+}
+
+.form-group input.error:focus {
+  border-color: #c53030;
+  box-shadow: 0 0 0 3px rgba(197, 48, 48, 0.2);
 } 

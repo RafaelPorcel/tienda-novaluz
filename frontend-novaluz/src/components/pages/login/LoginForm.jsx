@@ -20,6 +20,39 @@ function LoginForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
+  const [fieldErrors, setFieldErrors] = useState({});
+
+  const validateField = (name, value) => {
+    const errors = { ...fieldErrors };
+    
+    switch (name) {
+      case 'telefono':
+        if (value && !/^\d{9}$/.test(value)) {
+          errors.telefono = 'Debe tener exactamente 9 dígitos';
+        } else {
+          delete errors.telefono;
+        }
+        break;
+      case 'codigoPostal':
+        if (value && !/^\d{5}$/.test(value)) {
+          errors.codigoPostal = 'Debe tener exactamente 5 dígitos';
+        } else {
+          delete errors.codigoPostal;
+        }
+        break;
+      case 'email':
+        if (value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+          errors.email = 'Formato de email no válido';
+        } else {
+          delete errors.email;
+        }
+        break;
+      default:
+        break;
+    }
+    
+    setFieldErrors(errors);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,6 +60,9 @@ function LoginForm() {
       ...prev,
       [name]: value
     }));
+    
+    // Validar campo en tiempo real
+    validateField(name, value);
   };
 
   const handleSubmit = async (e) => {
@@ -154,7 +190,11 @@ function LoginForm() {
                     required={!isLogin}
                     placeholder="123456789"
                     maxLength="9"
+                    className={fieldErrors.telefono ? 'error' : ''}
                   />
+                  {fieldErrors.telefono && (
+                    <div className="field-error">{fieldErrors.telefono}</div>
+                  )}
                 </div>
               )}
 
@@ -198,7 +238,11 @@ function LoginForm() {
                       required={!isLogin}
                       placeholder="12345"
                       maxLength="5"
+                      className={fieldErrors.codigoPostal ? 'error' : ''}
                     />
+                    {fieldErrors.codigoPostal && (
+                      <div className="field-error">{fieldErrors.codigoPostal}</div>
+                    )}
                   </div>
                 </div>
               )}
@@ -213,7 +257,11 @@ function LoginForm() {
                   onChange={handleChange}
                   required
                   placeholder="tu@email.com"
+                  className={fieldErrors.email ? 'error' : ''}
                 />
+                {fieldErrors.email && (
+                  <div className="field-error">{fieldErrors.email}</div>
+                )}
               </div>
 
               <div className="form-group">

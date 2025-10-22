@@ -40,13 +40,19 @@ router.post('/registro', async (req, res) => {
     // Validar formato de teléfono (9 dígitos)
     const telefonoRegex = /^\d{9}$/;
     if (!telefonoRegex.test(telefono)) {
-      return res.status(400).json({ message: 'El teléfono debe tener 9 dígitos' });
+      return res.status(400).json({ 
+        message: 'El teléfono debe tener exactamente 9 dígitos (ej: 123456789)',
+        field: 'telefono'
+      });
     }
 
     // Validar código postal (5 dígitos)
     const codigoPostalRegex = /^\d{5}$/;
     if (!codigoPostalRegex.test(codigoPostal)) {
-      return res.status(400).json({ message: 'El código postal debe tener 5 dígitos' });
+      return res.status(400).json({ 
+        message: 'El código postal debe tener exactamente 5 dígitos (ej: 28001)',
+        field: 'codigoPostal'
+      });
     }
 
     // Verificar si el usuario ya existe
@@ -55,7 +61,10 @@ router.post('/registro', async (req, res) => {
     });
 
     if (usuarioExistente) {
-      return res.status(400).json({ message: 'El email ya está registrado' });
+      return res.status(400).json({ 
+        message: 'Este email ya está registrado. ¿Ya tienes cuenta? Prueba a iniciar sesión.',
+        field: 'email'
+      });
     }
 
     // Encriptar contraseña
