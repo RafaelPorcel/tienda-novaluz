@@ -303,16 +303,22 @@ function LoginForm() {
                 </div>
               )}
 
-              {isLogin && (
-                <div className="form-options">
-                  <label className="checkbox-label">
-                    <input type="checkbox" />
-                    <span className="checkmark"></span>
-                    Recordarme
-                  </label>
-                  <a href="#" className="forgot-password">¿Olvidaste tu contraseña?</a>
-                </div>
-              )}
+                     {isLogin && (
+                       <div className="form-options">
+                         <label className="checkbox-label">
+                           <input type="checkbox" />
+                           <span className="checkmark"></span>
+                           Recordarme
+                         </label>
+                         <button 
+                           type="button" 
+                           className="forgot-password"
+                           onClick={() => navigate('/forgot-password')}
+                         >
+                           ¿Olvidaste tu contraseña?
+                         </button>
+                       </div>
+                     )}
 
               {error && (
                 <div className="error-message">

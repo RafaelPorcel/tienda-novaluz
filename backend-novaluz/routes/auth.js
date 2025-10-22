@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const { enviarEmailRecuperacion } = require('../services/emailService');
 
 // Secret para JWT (en producción debe estar en variables de entorno)
 const JWT_SECRET = process.env.JWT_SECRET || 'tu_secreto_super_seguro_cambiar_en_produccion';
@@ -317,6 +318,106 @@ router.put('/cambiar-password', verificarToken, async (req, res) => {
   } catch (error) {
     console.error('Error al cambiar contraseña:', error);
     res.status(500).json({ message: 'Error al cambiar contraseña', error: error.message });
+  } finally {
+    await prisma.$disconnect();
+  }
+});
+
+// Ruta para solicitar recuperación de contraseña
+router.post('/forgot-password', async (req, res) => {
+  const { PrismaClient } = require('@prisma/client');
+  const prisma = new PrismaClient();
+  
+  try {
+    const { email } = req.body;
+
+    if (!email) {
+      return res.status(400).json({ message: 'Email es obligatorio' });
+    }
+
+    // Buscar usuario por email
+    const usuario = await prisma.usuario.findUnique({
+      where: { email }
+    });
+
+    if (!usuario) {
+      return res.status(404).json({ message: 'No existe una cuenta con este email' });
+    }
+
+    // Generar token de recuperación (expira en 1 hora)
+    const resetToken = jwt.sign(
+      { userId: usuario.id, email: usuario.email },
+      JWT_SECRET,
+      { expiresIn: '1h' }
+    );
+
+    // Enviar email de recuperación
+    const emailResult = await enviarEmailRecuperacion(email, resetToken);
+
+    if (!emailResult.success) {
+      return res.status(500).json({ message: 'Error al enviar email de recuperación' });
+    }
+
+    res.json({ 
+      message: 'Se ha enviado un email con las instrucciones para recuperar tu contraseña' 
+    });
+
+  } catch (error) {
+    console.error('Error en forgot-password:', error);
+    res.status(500).json({ message: 'Error al procesar la solicitud' });
+  } finally {
+    await prisma.$disconnect();
+  }
+});
+
+// Ruta para resetear contraseña con token
+router.post('/reset-password', async (req, res) => {
+  const { PrismaClient } = require('@prisma/client');
+  const prisma = new PrismaClient();
+  
+  try {
+    const { token, newPassword } = req.body;
+
+    if (!token || !newPassword) {
+      return res.status(400).json({ message: 'Token y nueva contraseña son obligatorios' });
+    }
+
+    // Validar longitud de contraseña
+    if (newPassword.length < 6) {
+      return res.status(400).json({ message: 'La contraseña debe tener al menos 6 caracteres' });
+    }
+
+    // Verificar token
+    const decoded = jwt.verify(token, JWT_SECRET);
+    
+    // Buscar usuario
+    const usuario = await prisma.usuario.findUnique({
+      where: { id: decoded.userId }
+    });
+
+    if (!usuario) {
+      return res.status(404).json({ message: 'Usuario no encontrado' });
+    }
+
+    // Encriptar nueva contraseña
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+    // Actualizar contraseña
+    await prisma.usuario.update({
+      where: { id: usuario.id },
+      data: { password: hashedPassword }
+    });
+
+    res.json({ message: 'Contraseña actualizada exitosamente' });
+
+  } catch (error) {
+    if (error.name === 'JsonWebTokenError' || error.name === 'TokenExpiredError') {
+      return res.status(400).json({ message: 'Token inválido o expirado' });
+    }
+    
+    console.error('Error en reset-password:', error);
+    res.status(500).json({ message: 'Error al procesar la solicitud' });
   } finally {
     await prisma.$disconnect();
   }
