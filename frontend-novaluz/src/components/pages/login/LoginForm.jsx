@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../../context/AuthContext';
 
 function LoginForm() {
+  const navigate = useNavigate();
+  const { login, register } = useAuth();
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
     email: '',
@@ -11,6 +15,7 @@ function LoginForm() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,19 +27,46 @@ function LoginForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
     setIsSubmitting(true);
     
-    // Simular envío del formulario
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
       if (isLogin) {
-        console.log('Login:', formData);
-        alert('¡Bienvenido de vuelta!');
+        // Iniciar sesión
+        const result = await login(formData.email, formData.password);
+        
+        if (result.success) {
+          navigate('/');
+        } else {
+          setError(result.message);
+        }
       } else {
-        console.log('Registro:', formData);
-        alert('¡Cuenta creada exitosamente!');
+        // Registro
+        if (formData.password !== formData.confirmPassword) {
+          setError('Las contraseñas no coinciden');
+          setIsSubmitting(false);
+          return;
+        }
+
+        if (formData.password.length < 6) {
+          setError('La contraseña debe tener al menos 6 caracteres');
+          setIsSubmitting(false);
+          return;
+        }
+
+        const result = await register(formData.nombre, formData.email, formData.password);
+        
+        if (result.success) {
+          navigate('/');
+        } else {
+          setError(result.message);
+        }
       }
-    }, 1500);
+    } catch (err) {
+      setError('Error al procesar la solicitud');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const toggleMode = () => {
@@ -148,6 +180,13 @@ function LoginForm() {
                     Recordarme
                   </label>
                   <a href="#" className="forgot-password">¿Olvidaste tu contraseña?</a>
+                </div>
+              )}
+
+              {error && (
+                <div className="error-message">
+                  <span className="error-icon">⚠️</span>
+                  {error}
                 </div>
               )}
 

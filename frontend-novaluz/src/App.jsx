@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
 import Layout from './components/layout/Layout';
 import Inicio from './pages/Inicio';
 import Tienda from './pages/Tienda';
@@ -21,19 +22,21 @@ import './styles/pages/Carrito.css';
 
 function App() {
   return (
-    <Router>
-      <ScrollToTop />
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Inicio />} />
-          <Route path="/tienda" element={<Tienda />} />
-          <Route path="/contacto" element={<Contacto />} />
-          <Route path="/sobre-nosotros" element={<SobreNosotros />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/carrito" element={<Carrito />} />
-        </Routes>
-      </Layout>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <ScrollToTop />
+        <Layout>
+          <Routes>
+            <Route path="/" element={<Inicio />} />
+            <Route path="/tienda" element={<Tienda />} />
+            <Route path="/contacto" element={<Contacto />} />
+            <Route path="/sobre-nosotros" element={<SobreNosotros />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/carrito" element={<Carrito />} />
+          </Routes>
+        </Layout>
+      </Router>
+    </AuthProvider>
   );
 }
 

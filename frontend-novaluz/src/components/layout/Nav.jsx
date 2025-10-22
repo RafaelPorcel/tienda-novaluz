@@ -1,11 +1,20 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useCarrito } from '../../context/CarritoContext';
+import { useAuth } from '../../context/AuthContext';
 
 function Nav() {
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { carritoItems } = useCarrito();
+  const { user, isAuthenticated, logout } = useAuth();
   const cartItems = carritoItems.reduce((total, item) => total + item.cantidad, 0);
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+    setIsMenuOpen(false);
+  };
 
 
   const toggleMenu = () => {
@@ -43,10 +52,21 @@ function Nav() {
               <span className="cart-badge">{cartItems}</span>
             )}
           </NavLink>
-          <NavLink to="/login" className="nav-login">
-            <span className="login-icon">🔐</span>
-            <span className="login-text">Iniciar Sesión</span>
-          </NavLink>
+          
+          {isAuthenticated ? (
+            <div className="nav-user-menu">
+              <span className="nav-user-name">👤 {user?.nombre}</span>
+              <button onClick={handleLogout} className="nav-logout">
+                Cerrar Sesión
+              </button>
+            </div>
+          ) : (
+            <NavLink to="/login" className="nav-login">
+              <span className="login-icon">🔐</span>
+              <span className="login-text">Iniciar Sesión</span>
+            </NavLink>
+          )}
+          
           <button 
             className={`nav-toggle ${isMenuOpen ? 'active' : ''}`}
             onClick={toggleMenu}
