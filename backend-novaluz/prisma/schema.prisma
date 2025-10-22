@@ -43,12 +43,12 @@ model Usuario {
   telefono        String?
   direccion       String?
   ciudad          String?
-  codigoPostal    String?
+  codigoPostal    String?   @map("codigopostal")
   pais            String    @default("España")
   rol             String    @default("cliente")
   activo          Boolean   @default(true)
-  fechaRegistro   DateTime  @default(now())
-  ultimoAcceso    DateTime?
+  fechaRegistro   DateTime  @default(now()) @map("fecharegistro")
+  ultimoAcceso    DateTime? @map("ultimoacceso")
 
   @@index([email])
 }
