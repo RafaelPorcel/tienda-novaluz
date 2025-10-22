@@ -55,9 +55,13 @@ function Nav() {
           
           {isAuthenticated ? (
             <div className="nav-user-menu">
-              <span className="nav-user-name">👤 {user?.nombre}</span>
+              <span className="nav-user-name">
+                👤 <span className="user-name-full">{user?.nombre}</span>
+                <span className="user-name-initial">{user?.nombre?.charAt(0)}</span>
+              </span>
               <button onClick={handleLogout} className="nav-logout">
-                Cerrar Sesión
+                <span className="logout-text-full">Cerrar Sesión</span>
+                <span className="logout-text-short">Salir</span>
               </button>
             </div>
           ) : (

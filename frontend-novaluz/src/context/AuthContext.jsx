@@ -32,14 +32,14 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   // Función para registrar un nuevo usuario
-  const register = async (nombre, email, password) => {
+  const register = async (nombre, apellidos, email, password, telefono, direccion, ciudad, codigoPostal) => {
     try {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/registro`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ nombre, email, password }),
+        body: JSON.stringify({ nombre, apellidos, email, password, telefono, direccion, ciudad, codigoPostal }),
       });
 
       const data = await response.json();

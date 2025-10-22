@@ -95,7 +95,7 @@
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 .nav-cart {
@@ -244,7 +244,7 @@
 .nav-user-menu {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 .nav-user-name {
@@ -255,6 +255,14 @@
   background: rgba(192, 45, 45, 0.1);
   border-radius: 20px;
   white-space: nowrap;
+}
+
+.user-name-initial {
+  display: none;
+}
+
+.logout-text-short {
+  display: none;
 }
 
 .nav-logout {
@@ -321,7 +329,7 @@
   }
   
   .nav-actions {
-    gap: 0.8rem;
+    gap: 1rem;
   }
   
   .nav-login {
@@ -346,7 +354,7 @@
   }
   
   .nav-actions {
-    gap: 0.6rem;
+    gap: 0.8rem;
   }
   
   .nav-login,
@@ -364,14 +372,31 @@
     padding: 0.4rem 0.8rem;
   }
   
+  .user-name-full {
+    display: none;
+  }
+  
+  .user-name-initial {
+    display: inline;
+  }
+  
   .nav-logout {
     padding: 0.5rem 1rem;
     font-size: 0.85rem;
   }
   
+  .logout-text-full {
+    display: none;
+  }
+  
+  .logout-text-short {
+    display: inline;
+  }
+  
   .nav-cart {
     width: 38px;
     height: 38px;
+    margin-left: 0.6rem;
   }
   
   .cart-icon {
@@ -429,7 +454,7 @@
   }
   
   .nav-actions {
-    gap: 0.5rem;
+    gap: 0.6rem;
   }
   
   .nav-login,
@@ -440,6 +465,7 @@
   .nav-cart {
     width: 35px;
     height: 35px;
+    margin-left: 0.4rem;
   }
   
   .cart-icon {
@@ -491,7 +517,7 @@
   }
   
   .nav-actions {
-    gap: 0.3rem;
+    gap: 0.4rem;
   }
   
   .nav-login,
@@ -502,6 +528,7 @@
   .nav-cart {
     width: 32px;
     height: 32px;
+    margin-left: 0.3rem;
   }
   
   .cart-icon {
@@ -537,6 +564,7 @@
   .nav-cart {
     width: 30px;
     height: 30px;
+    margin-left: 0.2rem;
   }
   
   .cart-icon {

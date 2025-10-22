@@ -37,13 +37,13 @@ model Producto {
 model Usuario {
   id              String    @id
   nombre          String
-  apellidos       String?
+  apellidos       String
   email           String    @unique
   password        String
-  telefono        String?
-  direccion       String?
-  ciudad          String?
-  codigoPostal    String?   @map("codigopostal")
+  telefono        String
+  direccion       String
+  ciudad          String
+  codigoPostal    String    @map("codigopostal")
   pais            String    @default("España")
   rol             String    @default("cliente")
   activo          Boolean   @default(true)

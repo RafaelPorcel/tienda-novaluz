@@ -22,8 +22,8 @@ router.post('/registro', async (req, res) => {
     const { nombre, apellidos, email, password, telefono, direccion, ciudad, codigoPostal } = req.body;
 
     // Validar campos requeridos
-    if (!nombre || !email || !password) {
-      return res.status(400).json({ message: 'Nombre, email y contraseña son obligatorios' });
+    if (!nombre || !apellidos || !email || !password || !telefono || !direccion || !ciudad || !codigoPostal) {
+      return res.status(400).json({ message: 'Todos los campos son obligatorios' });
     }
 
     // Validar formato de email
@@ -35,6 +35,18 @@ router.post('/registro', async (req, res) => {
     // Validar longitud de contraseña
     if (password.length < 6) {
       return res.status(400).json({ message: 'La contraseña debe tener al menos 6 caracteres' });
+    }
+
+    // Validar formato de teléfono (9 dígitos)
+    const telefonoRegex = /^\d{9}$/;
+    if (!telefonoRegex.test(telefono)) {
+      return res.status(400).json({ message: 'El teléfono debe tener 9 dígitos' });
+    }
+
+    // Validar código postal (5 dígitos)
+    const codigoPostalRegex = /^\d{5}$/;
+    if (!codigoPostalRegex.test(codigoPostal)) {
+      return res.status(400).json({ message: 'El código postal debe tener 5 dígitos' });
     }
 
     // Verificar si el usuario ya existe

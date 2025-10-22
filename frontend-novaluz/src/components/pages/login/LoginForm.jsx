@@ -11,7 +11,11 @@ function LoginForm() {
     password: '',
     confirmPassword: '',
     nombre: '',
-    apellidos: ''
+    apellidos: '',
+    telefono: '',
+    direccion: '',
+    ciudad: '',
+    codigoPostal: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -54,7 +58,16 @@ function LoginForm() {
           return;
         }
 
-        const result = await register(formData.nombre, formData.email, formData.password);
+        const result = await register(
+          formData.nombre, 
+          formData.apellidos, 
+          formData.email, 
+          formData.password, 
+          formData.telefono, 
+          formData.direccion, 
+          formData.ciudad, 
+          formData.codigoPostal
+        );
         
         if (result.success) {
           navigate('/');
@@ -76,8 +89,17 @@ function LoginForm() {
       password: '',
       confirmPassword: '',
       nombre: '',
-      apellidos: ''
+      apellidos: '',
+      telefono: '',
+      direccion: '',
+      ciudad: '',
+      codigoPostal: ''
     });
+    
+    // Scroll hacia arriba siempre que cambies de modo
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 100);
   };
 
   return (
@@ -115,6 +137,67 @@ function LoginForm() {
                       onChange={handleChange}
                       required={!isLogin}
                       placeholder="Tus apellidos"
+                    />
+                  </div>
+                </div>
+              )}
+
+              {!isLogin && (
+                <div className="form-group">
+                  <label htmlFor="telefono">Teléfono *</label>
+                  <input
+                    type="tel"
+                    id="telefono"
+                    name="telefono"
+                    value={formData.telefono}
+                    onChange={handleChange}
+                    required={!isLogin}
+                    placeholder="123456789"
+                    maxLength="9"
+                  />
+                </div>
+              )}
+
+              {!isLogin && (
+                <div className="form-group">
+                  <label htmlFor="direccion">Dirección *</label>
+                  <input
+                    type="text"
+                    id="direccion"
+                    name="direccion"
+                    value={formData.direccion}
+                    onChange={handleChange}
+                    required={!isLogin}
+                    placeholder="Calle, número, piso"
+                  />
+                </div>
+              )}
+
+              {!isLogin && (
+                <div className="form-row">
+                  <div className="form-group">
+                    <label htmlFor="ciudad">Ciudad *</label>
+                    <input
+                      type="text"
+                      id="ciudad"
+                      name="ciudad"
+                      value={formData.ciudad}
+                      onChange={handleChange}
+                      required={!isLogin}
+                      placeholder="Tu ciudad"
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="codigoPostal">Código Postal *</label>
+                    <input
+                      type="text"
+                      id="codigoPostal"
+                      name="codigoPostal"
+                      value={formData.codigoPostal}
+                      onChange={handleChange}
+                      required={!isLogin}
+                      placeholder="12345"
+                      maxLength="5"
                     />
                   </div>
                 </div>
