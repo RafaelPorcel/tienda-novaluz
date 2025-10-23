@@ -433,6 +433,9 @@ router.get('/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
   async (req, res) => {
     try {
+      console.log('Google OAuth callback exitoso');
+      console.log('Usuario autenticado:', req.user);
+      
       // Generar JWT para el usuario autenticado
       const token = jwt.sign(
         { userId: req.user.id, email: req.user.email },
@@ -440,11 +443,17 @@ router.get('/google/callback',
         { expiresIn: '7d' }
       );
 
+      console.log('JWT generado exitosamente');
+
       // Redirigir al frontend con el token
       const frontendUrl = process.env.FRONTEND_URL || 'https://tienda-novaluz.vercel.app';
-      res.redirect(`${frontendUrl}/auth/success?token=${token}`);
+      const redirectUrl = `${frontendUrl}/auth/success?token=${token}`;
+      
+      console.log('Redirigiendo a:', redirectUrl);
+      res.redirect(redirectUrl);
     } catch (error) {
       console.error('Error en callback de Google:', error);
+      console.error('Error details:', error.message);
       res.redirect(`${process.env.FRONTEND_URL || 'https://tienda-novaluz.vercel.app'}/login?error=auth_failed`);
     }
   }
