@@ -5,7 +5,7 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 // Función para enviar email de recuperación de contraseña
 const enviarEmailRecuperacion = async (email, token) => {
-  const resetUrl = `${process.env.FRONTEND_URL || 'http://localhost:5173'}/reset-password?token=${token}`;
+  const resetUrl = `${process.env.FRONTEND_URL || 'https://tienda-novaluz.vercel.app'}/reset-password?token=${token}`;
   
   const msg = {
     to: email,
