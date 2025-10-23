@@ -10,6 +10,7 @@ import Login from './pages/Login';
 import Carrito from './pages/Carrito';
 import ForgotPassword from './components/pages/login/ForgotPassword';
 import ResetPassword from './components/pages/login/ResetPassword';
+import AuthSuccess from './components/pages/login/AuthSuccess';
 import ScrollToTop from './components/ScrollToTop';
 // Importar estilos
 import './styles/components/Layout.css';
@@ -36,6 +37,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/auth/success" element={<AuthSuccess />} />
             <Route path="/carrito" element={<Carrito />} />
           </Routes>
         </Layout>

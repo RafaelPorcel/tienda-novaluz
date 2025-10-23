@@ -49,6 +49,8 @@ model Usuario {
   activo          Boolean   @default(true)
   fechaRegistro   DateTime  @default(now()) @map("fecharegistro")
   ultimoAcceso    DateTime? @map("ultimoacceso")
+  googleId        String?   @map("googleid")
 
   @@index([email])
+  @@index([googleId])
 }

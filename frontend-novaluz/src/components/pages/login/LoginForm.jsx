@@ -352,16 +352,20 @@ function LoginForm() {
               <span>o</span>
             </div>
 
-            <div className="social-login">
-              <button className="btn-social btn-google">
-                <span className="social-icon">🔍</span>
-                Continuar con Google
-              </button>
-              <button className="btn-social btn-facebook">
-                <span className="social-icon">📘</span>
-                Continuar con Facebook
-              </button>
-            </div>
+                   <div className="social-login">
+                     <button 
+                       type="button" 
+                       className="btn-social btn-google"
+                       onClick={() => window.location.href = `${import.meta.env.VITE_API_URL}/api/auth/google`}
+                     >
+                       <span className="social-icon">🔍</span>
+                       Continuar con Google
+                     </button>
+                     <button className="btn-social btn-facebook">
+                       <span className="social-icon">📘</span>
+                       Continuar con Facebook
+                     </button>
+                   </div>
 
             <div className="form-footer">
               <p>

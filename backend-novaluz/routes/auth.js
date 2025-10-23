@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { enviarEmailRecuperacion } = require('../services/emailService');
+const passport = require('../config/passport');
 
 // Secret para JWT (en producción debe estar en variables de entorno)
 const JWT_SECRET = process.env.JWT_SECRET || 'tu_secreto_super_seguro_cambiar_en_produccion';
@@ -422,6 +423,32 @@ router.post('/reset-password', async (req, res) => {
     await prisma.$disconnect();
   }
 });
+
+// Rutas de Google OAuth
+router.get('/google', passport.authenticate('google', {
+  scope: ['profile', 'email']
+}));
+
+router.get('/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  async (req, res) => {
+    try {
+      // Generar JWT para el usuario autenticado
+      const token = jwt.sign(
+        { userId: req.user.id, email: req.user.email },
+        JWT_SECRET,
+        { expiresIn: '7d' }
+      );
+
+      // Redirigir al frontend con el token
+      const frontendUrl = process.env.FRONTEND_URL || 'https://tienda-novaluz.vercel.app';
+      res.redirect(`${frontendUrl}/auth/success?token=${token}`);
+    } catch (error) {
+      console.error('Error en callback de Google:', error);
+      res.redirect(`${process.env.FRONTEND_URL || 'https://tienda-novaluz.vercel.app'}/login?error=auth_failed`);
+    }
+  }
+);
 
 module.exports = router;
 module.exports.verificarToken = verificarToken;
