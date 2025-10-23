@@ -353,14 +353,13 @@ function LoginForm() {
             </div>
 
                    <div className="social-login">
-                     <button 
-                       type="button" 
+                     <a 
+                       href="https://tienda-novaluz.onrender.com/api/auth/google"
                        className="btn-social btn-google"
-                       onClick={() => window.location.href = `${import.meta.env.VITE_API_URL}/api/auth/google`}
                      >
                        <span className="social-icon">🔍</span>
                        Continuar con Google
-                     </button>
+                     </a>
                      <button className="btn-social btn-facebook">
                        <span className="social-icon">📘</span>
                        Continuar con Facebook
