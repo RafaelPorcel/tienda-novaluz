@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { enviarEmailRecuperacion } = require('../services/emailService');
-// const passport = require('../config/passport'); // Temporalmente comentado
+const passport = require('../config/passport');
 
 // Secret para JWT (en producción debe estar en variables de entorno)
 const JWT_SECRET = process.env.JWT_SECRET || 'tu_secreto_super_seguro_cambiar_en_produccion';
@@ -424,8 +424,7 @@ router.post('/reset-password', async (req, res) => {
   }
 });
 
-// Rutas de Google OAuth - Temporalmente comentadas
-/*
+// Rutas de Google OAuth
 router.get('/google', passport.authenticate('google', {
   scope: ['profile', 'email']
 }));
@@ -459,7 +458,6 @@ router.get('/google/callback',
     }
   }
 );
-*/
 
 module.exports = router;
 module.exports.verificarToken = verificarToken;
