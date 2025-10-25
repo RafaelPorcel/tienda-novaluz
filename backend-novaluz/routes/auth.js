@@ -200,7 +200,7 @@ router.get('/perfil', verificarToken, async (req, res) => {
   
   try {
     const usuario = await prisma.usuario.findUnique({
-      where: { id: req.usuario.id },
+      where: { id: req.usuario.userId },
       select: {
         id: true,
         nombre: true,
@@ -240,7 +240,7 @@ router.put('/perfil', verificarToken, async (req, res) => {
     const { nombre, apellidos, telefono, direccion, ciudad, codigoPostal } = req.body;
 
     const usuarioActualizado = await prisma.usuario.update({
-      where: { id: req.usuario.id },
+      where: { id: req.usuario.userId },
       data: {
         nombre,
         apellidos,
@@ -294,7 +294,7 @@ router.put('/cambiar-password', verificarToken, async (req, res) => {
 
     // Obtener usuario
     const usuario = await prisma.usuario.findUnique({
-      where: { id: req.usuario.id }
+      where: { id: req.usuario.userId }
     });
 
     // Verificar contraseña actual
@@ -310,7 +310,7 @@ router.put('/cambiar-password', verificarToken, async (req, res) => {
 
     // Actualizar contraseña
     await prisma.usuario.update({
-      where: { id: req.usuario.id },
+      where: { id: req.usuario.userId },
       data: { password: hashedPassword }
     });
 
