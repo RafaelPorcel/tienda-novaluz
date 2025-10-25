@@ -11,33 +11,58 @@ function AuthSuccess() {
 
   useEffect(() => {
     if (token) {
-      // Guardar token en localStorage
       localStorage.setItem('token', token);
       setToken(token);
       
-      // Decodificar el token para obtener información básica del usuario
-      try {
-        const payload = JSON.parse(atob(token.split('.')[1]));
-        const user = {
-          id: payload.userId,
-          email: payload.email,
-          nombre: 'Usuario',
-          apellidos: 'Google'
-        };
-        
-        localStorage.setItem('user', JSON.stringify(user));
-        setUser(user);
-        
-        // Redirigir al inicio después de 2 segundos
-        setTimeout(() => {
-          navigate('/');
-        }, 2000);
-      } catch (error) {
-        console.error('Error procesando token:', error);
-        navigate('/login?error=auth_failed');
-      }
+      // Obtener datos completos del usuario desde el backend
+      const fetchUserData = async () => {
+        try {
+          const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/perfil`, {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          });
+          
+          if (response.ok) {
+            const userData = await response.json();
+            localStorage.setItem('user', JSON.stringify(userData));
+            setUser(userData);
+            
+            // Redirigir al inicio después de 2 segundos
+            setTimeout(() => {
+              navigate('/');
+            }, 2000);
+          } else {
+            throw new Error('Error al obtener datos del usuario');
+          }
+        } catch (error) {
+          console.error('Error obteniendo datos del usuario:', error);
+          // Fallback: usar datos básicos del token
+          try {
+            const payload = JSON.parse(atob(token.split('.')[1]));
+            const user = {
+              id: payload.userId,
+              email: payload.email,
+              nombre: 'Usuario',
+              apellidos: 'Google'
+            };
+            
+            localStorage.setItem('user', JSON.stringify(user));
+            setUser(user);
+            
+            setTimeout(() => {
+              navigate('/');
+            }, 2000);
+          } catch (tokenError) {
+            console.error('Error procesando token:', tokenError);
+            navigate('/login?error=auth_failed');
+          }
+        }
+      };
+      
+      fetchUserData();
     } else {
-      navigate('/login?error=no_token');
+      navigate('/login?error=auth_failed');
     }
   }, [token, navigate, setToken, setUser]);
 
